@@ -84,7 +84,7 @@
 
             @if (Auth::user()->role === 'admin')
                 <div class="alert alert-success rounded-4 mt-4">
-                    Kamu login sebagai admin. Nanti halaman ini akan kita upgrade menjadi dashboard admin lengkap.
+                    Kamu login sebagai admin. Nanti halaman ini akan diupgrade menjadi dashboard admin lengkap.
                 </div>
             @endif
         </div>
