@@ -22,7 +22,29 @@
                             <p><strong>No HP:</strong> {{ $order->phone }}</p>
                             <p><strong>Alamat:</strong> {{ $order->address }}</p>
                             <p><strong>Metode Pembayaran:</strong> {{ $order->payment_method }}</p>
-                            <p><strong>Status:</strong> {{ ucfirst($order->status) }}</p>
+
+                            <p>
+                                <strong>Status Pembayaran:</strong>
+                                @if ($order->payment_status === 'paid')
+                                    <span class="badge bg-success">Paid</span>
+                                @else
+                                    <span class="badge bg-warning text-dark">Unpaid</span>
+                                @endif
+                            </p>
+
+                            @if ($order->paid_at)
+                                <p>
+                                    <strong>Dibayar Pada:</strong>
+                                    {{ $order->paid_at->format('d M Y H:i') }}
+                                </p>
+                            @endif
+
+                            <p>
+                                <strong>Status Pesanan:</strong>
+                                <span class="badge bg-success">
+                                    {{ ucfirst($order->status) }}
+                                </span>
+                            </p>
                         </div>
                     </div>
 
@@ -56,9 +78,9 @@
                 </div>
 
                 <div class="col-md-5">
-                    <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card border-0 shadow-sm rounded-4 mb-4">
                         <div class="card-body">
-                            <h3 class="fw-bold mb-3">Ubah Status</h3>
+                            <h3 class="fw-bold mb-3">Ubah Status Pesanan</h3>
 
                             <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
                                 @csrf
@@ -76,13 +98,31 @@
                                     Update Status
                                 </button>
                             </form>
+                        </div>
+                    </div>
 
-                            <hr>
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body">
+                            <h3 class="fw-bold mb-3">Ringkasan Eco</h3>
 
                             <p class="text-muted mb-1">Eco Points Didapat</p>
                             <h3 class="text-success fw-bold">
                                 +{{ $order->total_eco_points }}
                             </h3>
+
+                            <hr>
+
+                            <p class="text-muted mb-1">Status Pembayaran</p>
+
+                            @if ($order->payment_status === 'paid')
+                                <span class="badge bg-success rounded-pill px-3 py-2">
+                                    Paid
+                                </span>
+                            @else
+                                <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
+                                    Unpaid
+                                </span>
+                            @endif
                         </div>
                     </div>
                 </div>

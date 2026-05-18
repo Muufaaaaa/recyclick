@@ -22,6 +22,10 @@
                     Wishlist
                 </a>
 
+                <a class="text-dark text-decoration-none" href="{{ route('chat.index') }}">
+                    Chat
+                </a>
+
                 <a class="text-dark text-decoration-none" href="{{ route('orders.history') }}">
                     Riwayat
                 </a>

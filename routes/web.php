@@ -5,9 +5,11 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\ChatController as AdminChatController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'home'])->name('home');
@@ -28,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
     Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store');
     Route::get('/orders/success/{order:order_code}', [OrderController::class, 'success'])->name('orders.success');
+    Route::get('/orders/payment/{order:order_code}', [OrderController::class, 'payment'])->name('orders.payment');
+    Route::patch('/orders/payment/{order:order_code}', [OrderController::class, 'pay'])->name('orders.pay');
     Route::get('/orders/history', [OrderController::class, 'history'])->name('orders.history');
 
     Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
@@ -38,6 +42,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
         Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
+        Route::get('/chats', [AdminChatController::class, 'index'])->name('chats.index');
+        Route::get('/chats/{user}', [AdminChatController::class, 'show'])->name('chats.show');
+        Route::post('/chats/{user}/reply', [AdminChatController::class, 'reply'])->name('chats.reply');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -47,6 +55,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
     Route::post('/wishlist/{product:slug}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
     Route::delete('/wishlist/{wishlist}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+    Route::post('/chat', [ChatController::class, 'store'])->name('chat.store');
 });
 
 require __DIR__ . '/auth.php';

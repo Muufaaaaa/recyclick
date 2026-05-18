@@ -62,6 +62,8 @@ class OrderController extends Controller
             'address' => $request->address,
             'phone' => $request->phone,
             'payment_method' => $request->payment_method,
+            'payment_status' => 'unpaid',
+            'paid_at' => null,
             'status' => 'pending',
         ]);
 
@@ -92,6 +94,36 @@ class OrderController extends Controller
         }
 
         return view('orders.success', compact('order'));
+    }
+
+    public function payment(Order $order)
+    {
+        if ($order->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        return view('orders.payment', compact('order'));
+    }
+
+    public function pay(Order $order)
+    {
+        if ($order->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        if ($order->payment_status === 'paid') {
+            return redirect()->route('orders.success', $order->order_code)
+                ->with('success', 'Pesanan ini sudah dibayar.');
+        }
+
+        $order->update([
+            'payment_status' => 'paid',
+            'paid_at' => now(),
+            'status' => 'processing',
+        ]);
+
+        return redirect()->route('orders.success', $order->order_code)
+            ->with('success', 'Pembayaran berhasil disimulasikan.');
     }
 
     public function history()

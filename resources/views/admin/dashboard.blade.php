@@ -9,13 +9,17 @@
                     </p>
                 </div>
 
-                <div class="d-flex gap-2 mt-3 mt-md-0">
+                <div class="d-flex gap-2 mt-3 mt-md-0 flex-wrap">
                     <a href="{{ route('admin.products.index') }}" class="btn btn-outline-success rounded-pill">
                         Kelola Produk
                     </a>
 
-                    <a href="{{ route('admin.orders.index') }}" class="btn btn-success rounded-pill">
+                    <a href="{{ route('admin.orders.index') }}" class="btn btn-outline-success rounded-pill">
                         Kelola Order
+                    </a>
+
+                    <a href="{{ route('admin.chats.index') }}" class="btn btn-outline-success rounded-pill">
+                        Chat Pelanggan
                     </a>
                 </div>
             </div>
