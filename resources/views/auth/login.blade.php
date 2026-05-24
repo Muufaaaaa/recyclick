@@ -1,47 +1,120 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <div class="recy-auth-page">
+        <div class="recy-auth-card">
+            <div class="row g-0">
+                <div class="col-lg-5">
+                    <div class="recy-auth-side">
+                        <div style="position: relative; z-index: 2;">
+                            <a href="{{ route('home') }}" class="recy-auth-logo">
+                                <span class="recy-auth-logo-icon">♻</span>
+                                <span>Recyclick</span>
+                            </a>
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+                            <h1 class="fw-bold mt-5 mb-3">
+                                Welcome Back!
+                            </h1>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            <p class="opacity-75 mb-4">
+                                Masuk ke akun Recyclick untuk melanjutkan belanja produk ramah lingkungan,
+                                cek pesanan, wishlist, dan eco points kamu.
+                            </p>
+
+                            <div class="recy-auth-feature mb-3">
+                                <strong>Eco Points</strong>
+                                <p class="mb-0 opacity-75 small">
+                                    Kumpulkan poin dari setiap transaksi eco-friendly.
+                                </p>
+                            </div>
+
+                            <div class="recy-auth-feature">
+                                <strong>Green Shopping</strong>
+                                <p class="mb-0 opacity-75 small">
+                                    Belanja reusable, recycled, dan zero waste products.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="recy-auth-form">
+                        <span class="recy-badge">Login</span>
+
+                        <h2 class="fw-bold mt-3 mb-2">
+                            Masuk ke Akun
+                        </h2>
+
+                        <p class="text-muted mb-4">
+                            Gunakan email dan password untuk masuk ke Recyclick.
+                        </p>
+
+                        @if (session('status'))
+                            <div class="alert alert-success rounded-4">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger rounded-4">
+                                @foreach ($errors->all() as $error)
+                                    <div>{{ $error }}</div>
+                                @endforeach
+                            </div>
+                        @endif
+
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Email</label>
+                                <input type="email" name="email" value="{{ old('email') }}"
+                                    class="form-control recy-auth-input" placeholder="nama@email.com" required
+                                    autofocus>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Password</label>
+                                <input type="password" name="password" class="form-control recy-auth-input"
+                                    placeholder="Masukkan password" required>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <label class="d-flex align-items-center gap-2">
+                                    <input type="checkbox" name="remember" class="form-check-input">
+                                    <span class="text-muted small">Remember me</span>
+                                </label>
+
+                                @if (Route::has('password.request'))
+                                    <a href="{{ route('password.request') }}" class="recy-auth-link small">
+                                        Lupa password?
+                                    </a>
+                                @endif
+                            </div>
+
+                            <button type="submit" class="recy-btn-primary w-100 mb-3">
+                                Login
+                            </button>
+
+                            <p class="text-center text-muted mb-0">
+                                Belum punya akun?
+                                <a href="{{ route('register') }}" class="recy-auth-link">
+                                    Daftar sekarang
+                                </a>
+                            </p>
+                        </form>
+
+                        <div class="text-center mt-4">
+                            <a href="{{ route('home') }}" class="text-muted text-decoration-none">
+                                ← Kembali ke Home
+                            </a>
+                        </div>
+
+                        <div class="alert alert-success rounded-4 mt-4">
+                            <strong>Demo Admin:</strong> admin@recyclick.test / password
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
+    </div>
 </x-guest-layout>

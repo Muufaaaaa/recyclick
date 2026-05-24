@@ -100,6 +100,11 @@
                                 </div>
                             </div>
 
+                            <a href="{{ route('orders.detail', $order->order_code) }}"
+                                class="recy-btn-outline text-decoration-none d-block text-center mt-3">
+                                Lihat Detail Invoice
+                            </a>
+
                             @if ($order->payment_status !== 'paid')
                                 <form action="{{ route('orders.pay', $order->order_code) }}" method="POST" class="mt-3">
                                     @csrf

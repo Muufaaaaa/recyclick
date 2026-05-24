@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ChatController as AdminChatController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'home'])->name('home');
@@ -33,11 +34,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders/payment/{order:order_code}', [OrderController::class, 'payment'])->name('orders.payment');
     Route::post('/orders/{order:order_code}/pay', [OrderController::class, 'pay'])->name('orders.pay');
     Route::get('/orders/history', [OrderController::class, 'history'])->name('orders.history');
+    Route::get('/orders/detail/{order:order_code}', [OrderController::class, 'detail'])->name('orders.detail');
 
     Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
         Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
 
         Route::resource('products', AdminProductController::class);
+        Route::resource('categories', AdminCategoryController::class);
 
         Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');

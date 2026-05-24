@@ -14,6 +14,10 @@
                         Kelola Produk
                     </a>
 
+                    <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-success rounded-pill">
+                        Kelola Kategori
+                    </a>
+
                     <a href="{{ route('admin.orders.index') }}" class="btn btn-outline-success rounded-pill">
                         Kelola Order
                     </a>

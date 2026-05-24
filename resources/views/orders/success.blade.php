@@ -89,6 +89,11 @@
                     @endif
 
                     <div class="d-flex justify-content-center gap-2 flex-wrap">
+                        <a href="{{ route('orders.detail', $order->order_code) }}"
+                            class="recy-btn-outline text-decoration-none">
+                            Detail Invoice
+                        </a>
+
                         <a href="{{ route('orders.history') }}" class="recy-btn-outline text-decoration-none">
                             Lihat Riwayat
                         </a>

@@ -125,6 +125,17 @@ class OrderController extends Controller
             ->with('success', 'Pembayaran berhasil disimulasikan.');
     }
 
+    public function detail(Order $order)
+    {
+        if ($order->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $order->load('items.product', 'user');
+
+        return view('orders.detail', compact('order'));
+    }
+
     public function history()
     {
         $orders = Order::where('user_id', Auth::id())

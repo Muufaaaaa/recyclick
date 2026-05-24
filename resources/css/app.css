@@ -1471,3 +1471,179 @@ body {
 .recy-admin-info-row strong {
     text-align: right;
 }
+
+/* ===== Recyclick Invoice Detail ===== */
+
+.recy-invoice-box {
+    background: #ffffff;
+    border-radius: 32px;
+    border: 1px solid rgba(229, 231, 235, 0.9);
+    box-shadow: 0 20px 54px rgba(15, 107, 63, 0.09);
+    padding: 34px;
+}
+
+.recy-invoice-header {
+    border-bottom: 1px solid #eef2f7;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+}
+
+.recy-invoice-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.recy-invoice-row:last-child {
+    border-bottom: none;
+}
+
+.recy-invoice-row span {
+    color: #6b7280;
+}
+
+.recy-invoice-row strong {
+    text-align: right;
+}
+
+.recy-invoice-product {
+    padding: 16px 0;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.recy-invoice-product:last-child {
+    border-bottom: none;
+}
+
+@media print {
+    nav,
+    .recy-no-print,
+    .recy-shop-navbar {
+        display: none !important;
+    }
+
+    body {
+        background: #ffffff !important;
+    }
+
+    .recy-page {
+        background: #ffffff !important;
+        padding: 0 !important;
+    }
+
+    .recy-invoice-box {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+}
+
+/* ===== Recyclick Auth Pages ===== */
+
+.recy-auth-page {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, rgba(15, 107, 63, 0.18), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(15, 107, 63, 0.12), transparent 35%),
+        #f6f8f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+}
+
+.recy-auth-card {
+    width: 100%;
+    max-width: 980px;
+    background: #ffffff;
+    border-radius: 34px;
+    overflow: hidden;
+    border: 1px solid rgba(229, 231, 235, 0.9);
+    box-shadow: 0 28px 70px rgba(15, 107, 63, 0.13);
+}
+
+.recy-auth-side {
+    background: linear-gradient(135deg, #064e2d, #0f6b3f);
+    color: #ffffff;
+    padding: 46px;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.recy-auth-side::after {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    right: -80px;
+    top: -80px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 999px;
+}
+
+.recy-auth-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.recy-auth-logo-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.16);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    animation: recyRecycleSpin 3.5s ease-in-out infinite;
+}
+
+.recy-auth-form {
+    padding: 46px;
+}
+
+.recy-auth-input {
+    border-radius: 18px;
+    padding: 12px 16px;
+    border: 1px solid #e5e7eb;
+}
+
+.recy-auth-input:focus {
+    border-color: #0f6b3f;
+    box-shadow: 0 0 0 0.2rem rgba(15, 107, 63, 0.14);
+}
+
+.recy-auth-link {
+    color: #0f6b3f;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.recy-auth-link:hover {
+    text-decoration: underline;
+}
+
+.recy-auth-feature {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 18px;
+}
+
+@media (max-width: 768px) {
+    .recy-auth-side {
+        padding: 32px;
+    }
+
+    .recy-auth-form {
+        padding: 32px;
+    }
+}
