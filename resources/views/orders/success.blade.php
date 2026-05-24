@@ -1,66 +1,99 @@
 <x-app-layout>
-    <div class="bg-[#F6F8F3] min-h-screen py-5">
+    <div class="recy-page py-5">
         <div class="container">
-            <div class="card border-0 shadow-sm rounded-4 mx-auto" style="max-width: 650px;">
-                <div class="card-body text-center py-5">
-                    <h1 class="fw-bold text-success">Pesanan Berhasil!</h1>
+            @if (session('success'))
+                <div class="alert alert-success rounded-4">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-                    <p class="text-muted mt-3">
-                        Terima kasih sudah berbelanja produk ramah lingkungan di Recyclick.
-                    </p>
-
-                    @if (session('success'))
-                        <div class="alert alert-success rounded-4 mt-4">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    <div class="border rounded-4 p-4 my-4 text-start">
-                        <p class="mb-2">
-                            <strong>Kode Pesanan:</strong> {{ $order->order_code }}
-                        </p>
-
-                        <p class="mb-2">
-                            <strong>Total:</strong> Rp {{ number_format($order->total_price, 0, ',', '.') }}
-                        </p>
-
-                        <p class="mb-2">
-                            <strong>Eco Points:</strong>
-                            <span class="text-success">+{{ $order->total_eco_points }}</span>
-                        </p>
-
-                        <p class="mb-2">
-                            <strong>Metode Pembayaran:</strong> {{ $order->payment_method }}
-                        </p>
-
-                        <p class="mb-2">
-                            <strong>Status Pembayaran:</strong>
-
-                            @if ($order->payment_status === 'paid')
-                                <span class="badge bg-success">Paid</span>
-                            @else
-                                <span class="badge bg-warning text-dark">Unpaid</span>
-                            @endif
-                        </p>
-
-                        <p class="mb-0">
-                            <strong>Status Pesanan:</strong> {{ ucfirst($order->status) }}
-                        </p>
+            <div class="recy-success-box mx-auto" style="max-width: 760px;">
+                <div class="text-center">
+                    <div class="recy-success-icon">
+                        ✓
                     </div>
 
-                    <div class="d-flex justify-content-center gap-2 flex-wrap">
-                        @if ($order->payment_status !== 'paid' && $order->payment_method !== 'COD')
-                            <a href="{{ route('orders.payment', $order->order_code) }}"
-                                class="btn btn-warning rounded-pill px-4">
-                                Bayar Sekarang
-                            </a>
-                        @endif
+                    <span class="recy-badge">Order Created</span>
 
-                        <a href="{{ route('orders.history') }}" class="btn btn-success rounded-pill px-4">
-                            Lihat Riwayat Pesanan
+                    <h1 class="fw-bold mt-3">
+                        Pesanan Berhasil Dibuat!
+                    </h1>
+
+                    <p class="text-muted">
+                        Terima kasih sudah berbelanja produk ramah lingkungan di Recyclick.
+                    </p>
+                </div>
+
+                <div class="recy-eco-box my-4">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <small class="text-muted d-block">Kode Pesanan</small>
+                            <strong>{{ $order->order_code }}</strong>
+                        </div>
+
+                        <div class="col-md-6">
+                            <small class="text-muted d-block">Total Pembayaran</small>
+                            <strong>Rp {{ number_format($order->total_price, 0, ',', '.') }}</strong>
+                        </div>
+
+                        <div class="col-md-6">
+                            <small class="text-muted d-block">Metode Pembayaran</small>
+                            <strong>{{ $order->payment_method }}</strong>
+                        </div>
+
+                        <div class="col-md-6">
+                            <small class="text-muted d-block">Kode Pembayaran</small>
+                            <strong>{{ $order->payment_code }}</strong>
+                        </div>
+
+                        <div class="col-md-6">
+                            <small class="text-muted d-block">Status Pesanan</small>
+
+                            @if ($order->status === 'pending')
+                                <span class="recy-status-badge recy-status-unpaid">Pending</span>
+                            @elseif ($order->status === 'processing')
+                                <span class="recy-status-badge recy-status-processing">Processing</span>
+                            @elseif ($order->status === 'completed')
+                                <span class="recy-status-badge recy-status-paid">Completed</span>
+                            @else
+                                <span class="recy-status-badge recy-status-cancelled">Cancelled</span>
+                            @endif
+                        </div>
+
+                        <div class="col-md-6">
+                            <small class="text-muted d-block">Status Pembayaran</small>
+
+                            @if ($order->payment_status === 'paid')
+                                <span class="recy-status-badge recy-status-paid">Paid</span>
+                            @else
+                                <span class="recy-status-badge recy-status-unpaid">Unpaid</span>
+                            @endif
+                        </div>
+
+                        <div class="col-md-12">
+                            <small class="text-muted d-block">Eco Points Didapat</small>
+                            <strong class="text-success">+{{ $order->total_eco_points }} Eco Points</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    @if ($order->payment_status !== 'paid')
+                        <form action="{{ route('orders.pay', $order->order_code) }}" method="POST" class="mb-3">
+                            @csrf
+
+                            <button class="recy-btn-primary">
+                                Simulasikan Pembayaran
+                            </button>
+                        </form>
+                    @endif
+
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                        <a href="{{ route('orders.history') }}" class="recy-btn-outline text-decoration-none">
+                            Lihat Riwayat
                         </a>
 
-                        <a href="{{ route('products.index') }}" class="btn btn-outline-success rounded-pill px-4">
+                        <a href="{{ route('products.index') }}" class="recy-btn-outline text-decoration-none">
                             Belanja Lagi
                         </a>
                     </div>

@@ -1,7 +1,19 @@
 <x-app-layout>
-    <div class="bg-[#F6F8F3] min-h-screen py-5">
+    <div class="recy-page py-5">
         <div class="container">
-            <h1 class="fw-bold mb-4">Keranjang Belanja</h1>
+            <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+                <div>
+                    <span class="recy-badge">Shopping Cart</span>
+                    <h1 class="fw-bold mt-3 mb-1">Keranjang Belanja</h1>
+                    <p class="text-muted mb-0">
+                        Review produk ramah lingkungan sebelum checkout.
+                    </p>
+                </div>
+
+                <a href="{{ route('products.index') }}" class="recy-btn-outline text-decoration-none mt-3 mt-md-0">
+                    Lanjut Belanja
+                </a>
+            </div>
 
             @if (session('success'))
                 <div class="alert alert-success rounded-4">
@@ -24,112 +36,163 @@
 
             @if ($cart->items->count() > 0)
                 <div class="row g-4">
-                    <div class="col-md-8">
-                        @foreach ($cart->items as $item)
-                            @php
-                                $subtotal = $item->product->price * $item->quantity;
-                                $ecoSubtotal = $item->product->eco_points_reward * $item->quantity;
-                                $total += $subtotal;
-                                $totalEcoPoints += $ecoSubtotal;
-                            @endphp
+                    <div class="col-lg-8">
+                        <div class="d-flex flex-column gap-3">
+                            @foreach ($cart->items as $item)
+                                @php
+                                    $subtotal = $item->product->price * $item->quantity;
+                                    $ecoSubtotal = $item->product->eco_points_reward * $item->quantity;
+                                    $total += $subtotal;
+                                    $totalEcoPoints += $ecoSubtotal;
+                                @endphp
 
-                            <div class="card border-0 shadow-sm rounded-4 mb-3">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-2">
-                                            <div class="bg-light rounded-4 d-flex align-items-center justify-content-center"
-                                                style="height: 90px;">
-                                                @if ($item->product->image)
-                                                    <img src="{{ asset('storage/' . $item->product->image) }}"
-                                                        class="img-fluid rounded-4" style="max-height: 90px;">
-                                                @else
-                                                    <small class="text-muted">No Image</small>
-                                                @endif
-                                            </div>
+                                <div class="recy-cart-item">
+                                    <div class="row align-items-center g-3">
+                                        <div class="col-md-2 col-4">
+                                            @if ($item->product->image)
+                                                <img src="{{ asset('storage/' . $item->product->image) }}"
+                                                     class="recy-cart-img"
+                                                     alt="{{ $item->product->name }}">
+                                            @else
+                                                <div class="recy-cart-img d-flex align-items-center justify-content-center text-muted small">
+                                                    No Image
+                                                </div>
+                                            @endif
                                         </div>
 
-                                        <div class="col-md-4">
-                                            <h5 class="fw-bold mb-1">{{ $item->product->name }}</h5>
-                                            <small class="text-muted">
-                                                Rp {{ number_format($item->product->price, 0, ',', '.') }}
+                                        <div class="col-md-4 col-8">
+                                            <h5 class="fw-bold mb-1">
+                                                {{ $item->product->name }}
+                                            </h5>
+
+                                            <small class="text-muted d-block">
+                                                {{ $item->product->category->name ?? 'Eco Product' }}
                                             </small>
-                                            <br>
-                                            <small class="text-success">
-                                                +{{ $item->product->eco_points_reward }} Eco Points/item
-                                            </small>
+
+                                            @if ($item->product->eco_badge)
+                                                <span class="badge bg-success rounded-pill mt-2">
+                                                    {{ $item->product->eco_badge }}
+                                                </span>
+                                            @endif
                                         </div>
 
                                         <div class="col-md-3">
                                             <form action="{{ route('cart.update', $item->id) }}" method="POST">
                                                 @csrf
                                                 @method('PATCH')
+
+                                                <label class="form-label small text-muted mb-1">
+                                                    Quantity
+                                                </label>
+
                                                 <div class="input-group">
-                                                    <input type="number" name="quantity" value="{{ $item->quantity }}" min="1"
-                                                        class="form-control">
-                                                    <button class="btn btn-outline-success" type="submit">
+                                                    <input type="number"
+                                                           name="quantity"
+                                                           value="{{ $item->quantity }}"
+                                                           min="1"
+                                                           max="{{ $item->product->stock }}"
+                                                           class="form-control recy-form-control">
+
+                                                    <button class="btn btn-outline-success rounded-end-pill" type="submit">
                                                         Update
                                                     </button>
                                                 </div>
+
+                                                <small class="text-muted">
+                                                    Stok: {{ $item->product->stock }}
+                                                </small>
                                             </form>
                                         </div>
 
                                         <div class="col-md-2">
-                                            <p class="fw-bold mb-0">
+                                            <small class="text-muted d-block">
+                                                Subtotal
+                                            </small>
+
+                                            <strong class="text-success">
                                                 Rp {{ number_format($subtotal, 0, ',', '.') }}
-                                            </p>
+                                            </strong>
+
+                                            <small class="text-muted d-block">
+                                                +{{ $ecoSubtotal }} Eco Points
+                                            </small>
                                         </div>
 
-                                        <div class="col-md-1 text-end">
+                                        <div class="col-md-1 text-md-end">
                                             <form action="{{ route('cart.destroy', $item->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-sm btn-outline-danger">
+
+                                                <button class="btn btn-outline-danger rounded-circle"
+                                                        onclick="return confirm('Hapus produk ini dari keranjang?')">
                                                     ×
                                                 </button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="card border-0 shadow-sm rounded-4">
-                            <div class="card-body">
-                                <h4 class="fw-bold mb-3">Ringkasan</h4>
+                    <div class="col-lg-4">
+                        <div class="recy-summary-card">
+                            <span class="recy-badge">Order Summary</span>
 
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span>Total Harga</span>
-                                    <strong>Rp {{ number_format($total, 0, ',', '.') }}</strong>
-                                </div>
+                            <h4 class="fw-bold mt-3 mb-4">
+                                Ringkasan Belanja
+                            </h4>
 
-                                <div class="d-flex justify-content-between mb-4">
-                                    <span>Eco Points</span>
-                                    <strong class="text-success">+{{ $totalEcoPoints }}</strong>
-                                </div>
-
-                                <a href="{{ route('checkout') }}" class="btn btn-success w-100 rounded-pill">
-                                    Checkout
-                                </a>
-
-                                <a href="{{ route('products.index') }}"
-                                    class="btn btn-outline-success w-100 rounded-pill mt-2">
-                                    Lanjut Belanja
-                                </a>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="text-muted">Total Produk</span>
+                                <strong>{{ $cart->items->sum('quantity') }} item</strong>
                             </div>
+
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="text-muted">Total Harga</span>
+                                <strong>Rp {{ number_format($total, 0, ',', '.') }}</strong>
+                            </div>
+
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="text-muted">Eco Points</span>
+                                <strong class="text-success">+{{ $totalEcoPoints }}</strong>
+                            </div>
+
+                            <hr>
+
+                            <div class="recy-eco-box mb-4">
+                                <h6 class="fw-bold text-success mb-1">
+                                    Green Impact
+                                </h6>
+
+                                <small class="text-muted">
+                                    Pembelian ini memberi kontribusi sekitar
+                                    <strong>{{ $totalEcoPoints * 2 }}x</strong>
+                                    dampak hijau.
+                                </small>
+                            </div>
+
+                            <a href="{{ route('checkout') }}" class="recy-btn-primary text-decoration-none d-block text-center">
+                                Checkout Sekarang
+                            </a>
                         </div>
                     </div>
                 </div>
             @else
-                <div class="card border-0 shadow-sm rounded-4">
-                    <div class="card-body text-center py-5">
-                        <h4 class="fw-bold">Keranjang masih kosong</h4>
-                        <p class="text-muted">Tambahkan produk ramah lingkungan ke keranjang kamu.</p>
-                        <a href="{{ route('products.index') }}" class="btn btn-success rounded-pill px-4">
-                            Lihat Produk
-                        </a>
+                <div class="recy-empty-state">
+                    <div class="recy-animated-icon mx-auto mb-3">
+                        <span class="recy-icon-cart">🛒</span>
                     </div>
+
+                    <h4 class="fw-bold">Keranjang masih kosong</h4>
+
+                    <p class="text-muted">
+                        Tambahkan produk reusable, recycled, atau zero waste ke keranjang kamu.
+                    </p>
+
+                    <a href="{{ route('products.index') }}" class="recy-btn-primary text-decoration-none">
+                        Lihat Produk
+                    </a>
                 </div>
             @endif
         </div>

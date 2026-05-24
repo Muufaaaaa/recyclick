@@ -1,9 +1,28 @@
 <x-app-layout>
-    <div class="bg-[#F6F8F3] min-h-screen py-5">
+    <div class="recy-page py-5">
         <div class="container">
-            <a href="{{ route('admin.orders.index') }}" class="btn btn-outline-success rounded-pill mb-4">
-                ← Kembali
-            </a>
+
+            <div class="recy-admin-header">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <span class="badge bg-light text-success rounded-pill mb-3">
+                            Order Detail
+                        </span>
+
+                        <h1 class="fw-bold mb-2">
+                            {{ $order->order_code }}
+                        </h1>
+
+                        <p class="mb-0">
+                            Detail transaksi dan status pesanan pelanggan.
+                        </p>
+                    </div>
+
+                    <a href="{{ route('admin.orders.index') }}" class="btn btn-light rounded-pill fw-bold text-success">
+                        ← Kembali
+                    </a>
+                </div>
+            </div>
 
             @if (session('success'))
                 <div class="alert alert-success rounded-4">
@@ -12,121 +31,146 @@
             @endif
 
             <div class="row g-4">
-                <div class="col-md-7">
-                    <div class="card border-0 shadow-sm rounded-4 mb-4">
-                        <div class="card-body">
-                            <h3 class="fw-bold mb-3">Detail Pesanan</h3>
+                <div class="col-lg-7">
+                    <div class="recy-admin-detail-card mb-4">
+                        <h4 class="fw-bold mb-3">Informasi Pesanan</h4>
 
-                            <p><strong>Kode:</strong> {{ $order->order_code }}</p>
-                            <p><strong>Pelanggan:</strong> {{ $order->user->name }}</p>
-                            <p><strong>No HP:</strong> {{ $order->phone }}</p>
-                            <p><strong>Alamat:</strong> {{ $order->address }}</p>
-                            <p><strong>Metode Pembayaran:</strong> {{ $order->payment_method }}</p>
+                        <div class="recy-admin-info-row">
+                            <span>Kode Pesanan</span>
+                            <strong>{{ $order->order_code }}</strong>
+                        </div>
 
-                            <p>
-                                <strong>Status Pembayaran:</strong>
-                                @if ($order->payment_status === 'paid')
-                                    <span class="badge bg-success">Paid</span>
-                                @else
-                                    <span class="badge bg-warning text-dark">Unpaid</span>
-                                @endif
-                            </p>
+                        <div class="recy-admin-info-row">
+                            <span>Pelanggan</span>
+                            <strong>{{ $order->user->name }}</strong>
+                        </div>
 
-                            @if ($order->paid_at)
-                                <p>
-                                    <strong>Dibayar Pada:</strong>
-                                    {{ $order->paid_at->format('d M Y H:i') }}
-                                </p>
-                            @endif
+                        <div class="recy-admin-info-row">
+                            <span>Email</span>
+                            <strong>{{ $order->user->email }}</strong>
+                        </div>
 
-                            <p>
-                                <strong>Status Pesanan:</strong>
-                                <span class="badge bg-success">
-                                    {{ ucfirst($order->status) }}
-                                </span>
-                            </p>
+                        <div class="recy-admin-info-row">
+                            <span>No HP</span>
+                            <strong>{{ $order->phone }}</strong>
+                        </div>
+
+                        <div class="recy-admin-info-row">
+                            <span>Alamat</span>
+                            <strong>{{ $order->address }}</strong>
+                        </div>
+
+                        <div class="recy-admin-info-row">
+                            <span>Metode Pembayaran</span>
+                            <strong>{{ $order->payment_method }}</strong>
+                        </div>
+
+                        <div class="recy-admin-info-row">
+                            <span>Kode Pembayaran</span>
+                            <strong>{{ $order->payment_code ?? '-' }}</strong>
                         </div>
                     </div>
 
-                    <div class="card border-0 shadow-sm rounded-4">
-                        <div class="card-body">
-                            <h3 class="fw-bold mb-3">Produk Dipesan</h3>
+                    <div class="recy-admin-detail-card">
+                        <h4 class="fw-bold mb-3">Produk Dipesan</h4>
 
-                            @foreach ($order->items as $item)
-                                <div class="d-flex justify-content-between border-bottom py-3">
-                                    <div>
-                                        <h6 class="fw-bold mb-1">{{ $item->product->name }}</h6>
-                                        <small class="text-muted">
-                                            Qty: {{ $item->quantity }} × Rp {{ number_format($item->price, 0, ',', '.') }}
-                                        </small>
-                                    </div>
-
-                                    <strong>
-                                        Rp {{ number_format($item->subtotal, 0, ',', '.') }}
-                                    </strong>
+                        @foreach ($order->items as $item)
+                            <div class="recy-order-item d-flex justify-content-between align-items-center gap-3">
+                                <div>
+                                    <strong>{{ $item->product->name }}</strong>
+                                    <small class="text-muted d-block">
+                                        Qty: {{ $item->quantity }} × Rp {{ number_format($item->price, 0, ',', '.') }}
+                                    </small>
                                 </div>
-                            @endforeach
 
-                            <div class="d-flex justify-content-between mt-4">
-                                <h5 class="fw-bold">Total</h5>
-                                <h5 class="fw-bold text-success">
-                                    Rp {{ number_format($order->total_price, 0, ',', '.') }}
-                                </h5>
+                                <strong class="text-success">
+                                    Rp {{ number_format($item->subtotal, 0, ',', '.') }}
+                                </strong>
                             </div>
+                        @endforeach
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between">
+                            <h5 class="fw-bold">Total</h5>
+                            <h5 class="fw-bold text-success">
+                                Rp {{ number_format($order->total_price, 0, ',', '.') }}
+                            </h5>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <span>Eco Points</span>
+                            <strong class="text-success">+{{ $order->total_eco_points }}</strong>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-5">
-                    <div class="card border-0 shadow-sm rounded-4 mb-4">
-                        <div class="card-body">
-                            <h3 class="fw-bold mb-3">Ubah Status Pesanan</h3>
+                <div class="col-lg-5">
+                    <div class="recy-admin-detail-card mb-4">
+                        <h4 class="fw-bold mb-3">Status Pesanan</h4>
 
-                            <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
-                                @csrf
-                                @method('PATCH')
+                        <div class="mb-3">
+                            <small class="text-muted d-block mb-1">Status Order Saat Ini</small>
 
-                                <select name="status" class="form-select rounded-pill mb-3">
-                                    <option value="pending" @selected($order->status === 'pending')>Pending</option>
-                                    <option value="processing" @selected($order->status === 'processing')>Processing
-                                    </option>
-                                    <option value="completed" @selected($order->status === 'completed')>Completed</option>
-                                    <option value="cancelled" @selected($order->status === 'cancelled')>Cancelled</option>
-                                </select>
-
-                                <button class="btn btn-success rounded-pill px-4">
-                                    Update Status
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="card border-0 shadow-sm rounded-4">
-                        <div class="card-body">
-                            <h3 class="fw-bold mb-3">Ringkasan Eco</h3>
-
-                            <p class="text-muted mb-1">Eco Points Didapat</p>
-                            <h3 class="text-success fw-bold">
-                                +{{ $order->total_eco_points }}
-                            </h3>
-
-                            <hr>
-
-                            <p class="text-muted mb-1">Status Pembayaran</p>
-
-                            @if ($order->payment_status === 'paid')
-                                <span class="badge bg-success rounded-pill px-3 py-2">
-                                    Paid
-                                </span>
+                            @if ($order->status === 'pending')
+                                <span class="recy-status-badge recy-status-unpaid">Pending</span>
+                            @elseif ($order->status === 'processing')
+                                <span class="recy-status-badge recy-status-processing">Processing</span>
+                            @elseif ($order->status === 'completed')
+                                <span class="recy-status-badge recy-status-paid">Completed</span>
                             @else
-                                <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
-                                    Unpaid
-                                </span>
+                                <span class="recy-status-badge recy-status-cancelled">Cancelled</span>
                             @endif
                         </div>
+
+                        <div class="mb-4">
+                            <small class="text-muted d-block mb-1">Status Pembayaran</small>
+
+                            @if ($order->payment_status === 'paid')
+                                <span class="recy-status-badge recy-status-paid">Paid</span>
+                            @elseif ($order->payment_status === 'failed')
+                                <span class="recy-status-badge recy-status-cancelled">Failed</span>
+                            @else
+                                <span class="recy-status-badge recy-status-unpaid">Unpaid</span>
+                            @endif
+                        </div>
+
+                        <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+
+                            <label class="recy-admin-form-label">Ubah Status Order</label>
+
+                            <select name="status" class="form-select recy-form-control mb-3">
+                                <option value="pending" @selected($order->status === 'pending')>Pending</option>
+                                <option value="processing" @selected($order->status === 'processing')>Processing</option>
+                                <option value="completed" @selected($order->status === 'completed')>Completed</option>
+                                <option value="cancelled" @selected($order->status === 'cancelled')>Cancelled</option>
+                            </select>
+
+                            <button class="recy-btn-primary w-100">
+                                Update Status
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="recy-eco-box">
+                        <h5 class="fw-bold text-success mb-2">Green Impact</h5>
+                        <p class="text-muted mb-2">
+                            Pesanan ini memberikan:
+                        </p>
+
+                        <h2 class="fw-bold text-success mb-0">
+                            +{{ $order->total_eco_points }} Eco Points
+                        </h2>
+
+                        <small class="text-muted">
+                            Estimasi {{ $order->total_eco_points * 2 }}x kontribusi hijau.
+                        </small>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </x-app-layout>

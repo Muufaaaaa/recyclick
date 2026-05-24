@@ -63,7 +63,7 @@ class OrderController extends Controller
             'phone' => $request->phone,
             'payment_method' => $request->payment_method,
             'payment_status' => 'unpaid',
-            'paid_at' => null,
+            'payment_code' => 'PAY-' . strtoupper(Str::random(10)),
             'status' => 'pending',
         ]);
 
@@ -112,17 +112,16 @@ class OrderController extends Controller
         }
 
         if ($order->payment_status === 'paid') {
-            return redirect()->route('orders.success', $order->order_code)
-                ->with('success', 'Pesanan ini sudah dibayar.');
+            return back()->with('success', 'Pesanan ini sudah dibayar.');
         }
 
         $order->update([
             'payment_status' => 'paid',
-            'paid_at' => now(),
             'status' => 'processing',
         ]);
 
-        return redirect()->route('orders.success', $order->order_code)
+        return redirect()
+            ->route('orders.success', $order->order_code)
             ->with('success', 'Pembayaran berhasil disimulasikan.');
     }
 

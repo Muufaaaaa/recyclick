@@ -1,7 +1,29 @@
 <x-app-layout>
-    <div class="bg-[#F6F8F3] min-h-screen py-5">
+    <div class="recy-page py-5">
         <div class="container">
-            <h1 class="fw-bold mb-4">Tambah Produk</h1>
+
+            <div class="recy-admin-header">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <span class="badge bg-light text-success rounded-pill mb-3">
+                            Add Product
+                        </span>
+
+                        <h1 class="fw-bold mb-2">
+                            Tambah Produk
+                        </h1>
+
+                        <p class="mb-0">
+                            Tambahkan produk eco-friendly baru ke katalog Recyclick.
+                        </p>
+                    </div>
+
+                    <a href="{{ route('admin.products.index') }}"
+                        class="btn btn-light rounded-pill fw-bold text-success">
+                        ← Kembali
+                    </a>
+                </div>
+            </div>
 
             @if ($errors->any())
                 <div class="alert alert-danger rounded-4">
@@ -11,84 +33,129 @@
                 </div>
             @endif
 
-            <div class="card border-0 shadow-sm rounded-4">
-                <div class="card-body">
-                    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
+            <div class="recy-admin-form-card">
+                <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
 
-                        <div class="mb-3">
-                            <label class="form-label">Kategori</label>
-                            <select name="category_id" class="form-select rounded-pill" required>
-                                <option value="">Pilih Kategori</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Nama Produk</label>
-                            <input type="text" name="name" class="form-control rounded-pill" value="{{ old('name') }}"
-                                required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Gambar Produk</label>
-                            <input type="file" name="image" class="form-control rounded-pill" accept="image/*">
-                            <small class="text-muted">Format: JPG, PNG, WEBP. Maksimal 2MB.</small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Deskripsi</label>
-                            <textarea name="description" class="form-control rounded-4" rows="4"
-                                required>{{ old('description') }}</textarea>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label">Harga</label>
-                                <input type="number" name="price" class="form-control rounded-pill"
-                                    value="{{ old('price') }}" required>
+                    <div class="row g-4">
+                        <div class="col-lg-8">
+                            <div class="mb-3">
+                                <label class="recy-admin-form-label">Nama Produk</label>
+                                <input type="text" name="name" class="form-control recy-form-control"
+                                    value="{{ old('name') }}" placeholder="Contoh: Reusable Tote Bag" required>
                             </div>
 
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label">Stok</label>
-                                <input type="number" name="stock" class="form-control rounded-pill"
-                                    value="{{ old('stock') }}" required>
+                            <div class="mb-3">
+                                <label class="recy-admin-form-label">Kategori</label>
+                                <select name="category_id" class="form-select recy-form-control" required>
+                                    <option value="">Pilih Kategori</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
 
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label">Eco Points</label>
-                                <input type="number" name="eco_points_reward" class="form-control rounded-pill"
-                                    value="{{ old('eco_points_reward', 10) }}" required>
+                            <div class="mb-3">
+                                <label class="recy-admin-form-label">Deskripsi</label>
+                                <textarea name="description" class="form-control recy-form-control" rows="5"
+                                    placeholder="Jelaskan manfaat dan detail produk..."
+                                    required>{{ old('description') }}</textarea>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="recy-admin-form-label">Harga</label>
+                                    <input type="number" name="price" class="form-control recy-form-control"
+                                        value="{{ old('price') }}" placeholder="35000" required>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="recy-admin-form-label">Stok</label>
+                                    <input type="number" name="stock" class="form-control recy-form-control"
+                                        value="{{ old('stock') }}" placeholder="25" required>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="recy-admin-form-label">Eco Points</label>
+                                    <input type="number" name="eco_points_reward" class="form-control recy-form-control"
+                                        value="{{ old('eco_points_reward', 10) }}" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="recy-admin-form-label">Eco Badge</label>
+                                    <input type="text" name="eco_badge" class="form-control recy-form-control"
+                                        placeholder="Eco Choice / Recycled / Plastic Free"
+                                        value="{{ old('eco_badge') }}">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="recy-admin-form-label">Eco Impact</label>
+                                    <input type="number" name="eco_impact" class="form-control recy-form-control"
+                                        value="{{ old('eco_impact', 1) }}" required>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Eco Badge</label>
-                                <input type="text" name="eco_badge" class="form-control rounded-pill"
-                                    placeholder="Eco Choice / Recycled / Plastic Free" value="{{ old('eco_badge') }}">
+                        <div class="col-lg-4">
+                            <div class="recy-eco-box mb-4">
+                                <h5 class="fw-bold text-success mb-2">
+                                    Informasi Eco Product
+                                </h5>
+
+                                <p class="text-muted small mb-0">
+                                    Gunakan badge seperti <strong>Reusable</strong>, <strong>Recycled</strong>,
+                                    atau <strong>Plastic Free</strong> agar produk terlihat lebih menarik.
+                                </p>
                             </div>
 
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Eco Impact</label>
-                                <input type="number" name="eco_impact" class="form-control rounded-pill"
-                                    value="{{ old('eco_impact', 1) }}" required>
+                            <div class="mb-3">
+                                <label class="recy-admin-form-label">Gambar Produk</label>
+                                <input type="file" name="image" class="form-control recy-form-control" accept="image/*">
+
+                                <small class="text-muted">
+                                    Format: JPG, JPEG, PNG, WEBP. Maksimal 2MB.
+                                </small>
+                            </div>
+
+                            <div class="recy-admin-detail-card">
+                                <h6 class="fw-bold mb-3">Preview Status</h6>
+
+                                <div class="recy-admin-info-row">
+                                    <span>Status</span>
+                                    <strong class="text-success">Produk Baru</strong>
+                                </div>
+
+                                <div class="recy-admin-info-row">
+                                    <span>Upload Gambar</span>
+                                    <strong>Opsional</strong>
+                                </div>
+
+                                <div class="recy-admin-info-row">
+                                    <span>Tampil di Katalog</span>
+                                    <strong>Ya</strong>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
-                        <button class="btn btn-success rounded-pill px-4">
+                    <hr class="my-4">
+
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="recy-btn-primary">
                             Simpan Produk
                         </button>
 
-                        <a href="{{ route('admin.products.index') }}"
-                            class="btn btn-outline-secondary rounded-pill px-4">
+                        <a href="{{ route('admin.products.index') }}" class="recy-btn-outline text-decoration-none">
                             Batal
                         </a>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
+
         </div>
     </div>
 </x-app-layout>

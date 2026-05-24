@@ -24,6 +24,7 @@
                 </div>
             </div>
 
+            {{-- STATISTIC CARDS --}}
             <div class="row g-4 mb-4">
                 <div class="col-md-3">
                     <div class="card border-0 shadow-sm rounded-4">
@@ -61,15 +62,120 @@
                 <div class="col-md-3">
                     <div class="card border-0 shadow-sm rounded-4">
                         <div class="card-body">
-                            <small class="text-muted">Revenue Completed</small>
-                            <h5 class="fw-bold text-success mb-0">
-                                Rp {{ number_format($totalRevenue, 0, ',', '.') }}
-                            </h5>
+                            <small class="text-muted">Eco Points</small>
+                            <h2 class="fw-bold text-success mb-0">
+                                {{ $totalEcoPoints }}
+                            </h2>
                         </div>
                     </div>
                 </div>
             </div>
 
+            {{-- REVENUE + GREEN IMPACT --}}
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body">
+                            <small class="text-muted">Revenue Completed</small>
+                            <h3 class="fw-bold text-success mb-0">
+                                Rp {{ number_format($totalRevenue, 0, ',', '.') }}
+                            </h3>
+                            <p class="text-muted small mb-0 mt-2">
+                                Total pendapatan dari pesanan yang sudah completed.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body">
+                            <small class="text-muted">Green Impact</small>
+                            <h3 class="fw-bold text-success mb-0">
+                                {{ $totalEcoPoints * 2 }}x kontribusi
+                            </h3>
+                            <p class="text-muted small mb-0 mt-2">
+                                Estimasi kontribusi dari total eco points pengguna.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- CHART SECTION --}}
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Status Order</h4>
+                            <canvas id="orderStatusChart" height="180"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Status Pembayaran</h4>
+                            <canvas id="paymentStatusChart" height="180"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- LOW STOCK PRODUCTS --}}
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body">
+                    <h4 class="fw-bold mb-3">Produk Stok Rendah</h4>
+
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Produk</th>
+                                    <th>Stok</th>
+                                    <th>Harga</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @forelse ($lowStockProducts as $product)
+                                    <tr>
+                                        <td class="fw-semibold">{{ $product->name }}</td>
+                                        <td>
+                                            @if ($product->stock == 0)
+                                                <span class="badge bg-danger">Habis</span>
+                                            @else
+                                                <span class="badge bg-warning text-dark">
+                                                    {{ $product->stock }} tersisa
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            Rp {{ number_format($product->price, 0, ',', '.') }}
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.products.edit', $product->id) }}"
+                                                class="btn btn-sm btn-outline-success rounded-pill">
+                                                Edit Stok
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted py-4">
+                                            Tidak ada produk stok rendah.
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            {{-- LATEST ORDERS --}}
             <div class="card border-0 shadow-sm rounded-4">
                 <div class="card-body">
                     <h4 class="fw-bold mb-3">Order Terbaru</h4>
@@ -81,7 +187,8 @@
                                     <th>Kode</th>
                                     <th>User</th>
                                     <th>Total</th>
-                                    <th>Status</th>
+                                    <th>Status Order</th>
+                                    <th>Status Bayar</th>
                                     <th>Tanggal</th>
                                 </tr>
                             </thead>
@@ -92,22 +199,44 @@
                                         <td class="fw-semibold">
                                             {{ $order->order_code }}
                                         </td>
-                                        <td>{{ $order->user->name }}</td>
+
+                                        <td>
+                                            {{ $order->user->name }}
+                                        </td>
+
                                         <td>
                                             Rp {{ number_format($order->total_price, 0, ',', '.') }}
                                         </td>
+
                                         <td>
-                                            <span class="badge bg-success">
-                                                {{ ucfirst($order->status) }}
-                                            </span>
+                                            @if ($order->status === 'pending')
+                                                <span class="badge bg-warning text-dark">Pending</span>
+                                            @elseif ($order->status === 'processing')
+                                                <span class="badge bg-info text-dark">Processing</span>
+                                            @elseif ($order->status === 'completed')
+                                                <span class="badge bg-success">Completed</span>
+                                            @else
+                                                <span class="badge bg-danger">Cancelled</span>
+                                            @endif
                                         </td>
+
+                                        <td>
+                                            @if ($order->payment_status === 'paid')
+                                                <span class="badge bg-success">Paid</span>
+                                            @elseif ($order->payment_status === 'failed')
+                                                <span class="badge bg-danger">Failed</span>
+                                            @else
+                                                <span class="badge bg-warning text-dark">Unpaid</span>
+                                            @endif
+                                        </td>
+
                                         <td>
                                             {{ $order->created_at->format('d M Y') }}
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center text-muted py-4">
+                                        <td colspan="6" class="text-center text-muted py-4">
                                             Belum ada order.
                                         </td>
                                     </tr>
@@ -120,4 +249,79 @@
 
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const orderStatusData = @json($orderStatusCounts);
+        const paymentStatusData = @json($paymentStatusCounts);
+
+        const orderStatusCtx = document.getElementById('orderStatusChart');
+        const paymentStatusCtx = document.getElementById('paymentStatusChart');
+
+        new Chart(orderStatusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Pending', 'Processing', 'Completed', 'Cancelled'],
+                datasets: [{
+                    data: [
+                        orderStatusData.pending,
+                        orderStatusData.processing,
+                        orderStatusData.completed,
+                        orderStatusData.cancelled
+                    ],
+                    backgroundColor: [
+                        '#f59e0b',
+                        '#0ea5e9',
+                        '#16a34a',
+                        '#dc2626'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        new Chart(paymentStatusCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Unpaid', 'Paid', 'Failed'],
+                datasets: [{
+                    label: 'Jumlah Order',
+                    data: [
+                        paymentStatusData.unpaid,
+                        paymentStatusData.paid,
+                        paymentStatusData.failed
+                    ],
+                    backgroundColor: [
+                        '#f59e0b',
+                        '#16a34a',
+                        '#dc2626'
+                    ],
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
 </x-app-layout>

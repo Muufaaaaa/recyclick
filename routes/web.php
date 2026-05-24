@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store');
     Route::get('/orders/success/{order:order_code}', [OrderController::class, 'success'])->name('orders.success');
     Route::get('/orders/payment/{order:order_code}', [OrderController::class, 'payment'])->name('orders.payment');
-    Route::patch('/orders/payment/{order:order_code}', [OrderController::class, 'pay'])->name('orders.pay');
+    Route::post('/orders/{order:order_code}/pay', [OrderController::class, 'pay'])->name('orders.pay');
     Route::get('/orders/history', [OrderController::class, 'history'])->name('orders.history');
 
     Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {

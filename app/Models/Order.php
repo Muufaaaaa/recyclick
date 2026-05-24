@@ -15,7 +15,7 @@ class Order extends Model
         'phone',
         'payment_method',
         'payment_status',
-        'paid_at',
+        'payment_code',
         'status',
     ];
 

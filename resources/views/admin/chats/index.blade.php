@@ -1,68 +1,99 @@
 <x-app-layout>
-    <div class="bg-[#F6F8F3] min-h-screen py-5">
+    <div class="recy-page py-5">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
-                <div>
-                    <h1 class="fw-bold mb-1">Chat Pelanggan</h1>
-                    <p class="text-muted mb-0">
-                        Kelola pesan masuk dari user Recyclick.
-                    </p>
-                </div>
 
-                <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary rounded-pill mt-3 mt-md-0">
-                    Admin Panel
-                </a>
+            <div class="recy-admin-header">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <span class="badge bg-light text-success rounded-pill mb-3">
+                            Customer Chat
+                        </span>
+
+                        <h1 class="fw-bold mb-2">
+                            Chat Pelanggan
+                        </h1>
+
+                        <p class="mb-0">
+                            Kelola pertanyaan, bantuan produk, dan pesan pelanggan Recyclick.
+                        </p>
+                    </div>
+
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-light rounded-pill fw-bold text-success">
+                        Admin Panel
+                    </a>
+                </div>
             </div>
 
-            <div class="card border-0 shadow-sm rounded-4">
-                <div class="card-body">
-                    @forelse ($conversations as $conversation)
-                        @php
-                            $unreadCount = \App\Models\Chat::where('user_id', $conversation->user_id)
-                                ->where('sender', 'user')
-                                ->where('is_read', false)
-                                ->count();
-                        @endphp
+            <div class="recy-admin-card">
+                @forelse ($conversations as $conversation)
+                    @php
+                        $unreadCount = \App\Models\Chat::where('user_id', $conversation->user_id)
+                            ->where('sender', 'user')
+                            ->where('is_read', false)
+                            ->count();
 
-                        <div class="d-flex justify-content-between align-items-center border-bottom py-3">
-                            <div>
-                                <h5 class="fw-bold mb-1">
-                                    {{ $conversation->user->name }}
-                                </h5>
+                        $totalMessages = \App\Models\Chat::where('user_id', $conversation->user_id)->count();
+                    @endphp
 
-                                <p class="text-muted mb-1">
-                                    {{ Str::limit($conversation->message, 80) }}
-                                </p>
+                    <div class="p-4 border-bottom">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="recy-animated-icon">
+                                    <span class="recy-icon-chat">💬</span>
+                                </div>
 
-                                <small class="text-muted">
-                                    Pesan terakhir: {{ $conversation->created_at->format('d M Y H:i') }}
-                                </small>
+                                <div>
+                                    <h5 class="fw-bold mb-1">
+                                        {{ $conversation->user->name }}
+                                    </h5>
+
+                                    <small class="text-muted d-block">
+                                        {{ $conversation->user->email }}
+                                    </small>
+
+                                    <p class="text-muted mb-0 mt-2">
+                                        {{ \Illuminate\Support\Str::limit($conversation->message, 90) }}
+                                    </p>
+                                </div>
                             </div>
 
-                            <div class="text-end">
+                            <div class="text-md-end">
                                 @if ($unreadCount > 0)
-                                    <span class="badge bg-danger rounded-pill mb-2">
+                                    <span class="recy-status-badge recy-status-cancelled mb-2">
                                         {{ $unreadCount }} pesan baru
                                     </span>
-                                    <br>
+                                @else
+                                    <span class="recy-status-badge recy-status-paid mb-2">
+                                        Sudah dibaca
+                                    </span>
                                 @endif
 
+                                <small class="text-muted d-block mb-3">
+                                    {{ $totalMessages }} pesan · {{ $conversation->created_at->format('d M Y H:i') }}
+                                </small>
+
                                 <a href="{{ route('admin.chats.show', $conversation->user_id) }}"
-                                    class="btn btn-success rounded-pill px-4">
+                                    class="recy-btn-primary text-decoration-none">
                                     Buka Chat
                                 </a>
                             </div>
                         </div>
-                    @empty
-                        <div class="text-center py-5">
-                            <h4 class="fw-bold">Belum ada chat</h4>
-                            <p class="text-muted mb-0">
-                                Pesan dari user akan muncul di sini.
-                            </p>
+                    </div>
+                @empty
+                    <div class="recy-admin-empty">
+                        <div class="recy-animated-icon mx-auto mb-3">
+                            <span class="recy-icon-chat">💬</span>
                         </div>
-                    @endforelse
-                </div>
+
+                        <h5 class="fw-bold">Belum ada chat</h5>
+
+                        <p class="text-muted mb-0">
+                            Pesan dari pelanggan akan muncul di halaman ini.
+                        </p>
+                    </div>
+                @endforelse
             </div>
+
         </div>
     </div>
 </x-app-layout>
