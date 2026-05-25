@@ -19,14 +19,25 @@
                     </div>
 
                     <div class="recy-admin-toolbar">
-                        <a href="{{ route('admin.dashboard') }}"
-                            class="btn btn-light rounded-pill fw-bold text-success">
-                            Admin Panel
+                        <a href="{{ route('admin.dashboard') }}" class="recy-admin-top-btn recy-admin-btn-outline">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M4 13h6V4H4v9Z" stroke="currentColor" stroke-width="2"
+                                    stroke-linejoin="round" />
+                                <path d="M14 20h6V4h-6v16Z" stroke="currentColor" stroke-width="2"
+                                    stroke-linejoin="round" />
+                                <path d="M4 20h6v-3H4v3Z" stroke="currentColor" stroke-width="2"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>Admin Panel</span>
                         </a>
 
                         <a href="{{ route('admin.products.create') }}"
-                            class="btn btn-outline-light rounded-pill fw-bold">
-                            + Tambah Produk
+                            class="recy-admin-top-btn recy-admin-btn-primary">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                <path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                            <span>Tambah Produk</span>
                         </a>
                     </div>
                 </div>
@@ -50,7 +61,7 @@
                                 <th>Stok</th>
                                 <th>Badge</th>
                                 <th>Eco Points</th>
-                                <th width="180">Aksi</th>
+                                <th class="text-center">AKSI</th>
                             </tr>
                         </thead>
 
@@ -116,21 +127,36 @@
                                         </strong>
                                     </td>
 
-                                    <td>
-                                        <div class="d-flex gap-2">
+                                    <td class="text-center align-middle">
+                                        <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
                                             <a href="{{ route('admin.products.edit', $product->id) }}"
-                                                class="btn btn-sm btn-outline-success recy-admin-action">
-                                                Edit
+                                                class="recy-admin-table-btn recy-admin-btn-edit">
+                                                <svg viewBox="0 0 24 24" fill="none">
+                                                    <path d="M12 20h9" stroke="currentColor" stroke-width="2"
+                                                        stroke-linecap="round" />
+                                                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z"
+                                                        stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                                                </svg>
+                                                <span>Edit</span>
                                             </a>
 
-                                            <form action="{{ route('admin.products.destroy', $product->id) }}"
-                                                method="POST">
+                                            <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST"
+                                                class="m-0">
                                                 @csrf
                                                 @method('DELETE')
 
-                                                <button class="btn btn-sm btn-outline-danger recy-admin-action"
-                                                    onclick="return confirm('Hapus produk ini?')">
-                                                    Hapus
+                                                <button type="submit" class="recy-admin-table-btn recy-admin-btn-delete">
+                                                    <svg viewBox="0 0 24 24" fill="none">
+                                                        <path d="M3 6h18" stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" />
+                                                        <path d="M8 6V4h8v2" stroke="currentColor" stroke-width="2"
+                                                            stroke-linejoin="round" />
+                                                        <path d="M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2"
+                                                            stroke-linejoin="round" />
+                                                        <path d="M10 11v6M14 11v6" stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" />
+                                                    </svg>
+                                                    <span>Hapus</span>
                                                 </button>
                                             </form>
                                         </div>

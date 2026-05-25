@@ -19,15 +19,30 @@
                     </div>
 
                     <div class="recy-admin-toolbar">
-                        <a href="{{ route('admin.dashboard') }}"
-                            class="btn btn-light rounded-pill fw-bold text-success">
-                            Admin Panel
-                        </a>
+                        <div class="recy-admin-toolbar">
+                            <a href="{{ route('admin.dashboard') }}" class="recy-admin-top-btn recy-admin-btn-outline">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M4 13h6V4H4v9Z" stroke="currentColor" stroke-width="2"
+                                        stroke-linejoin="round" />
+                                    <path d="M14 20h6V4h-6v16Z" stroke="currentColor" stroke-width="2"
+                                        stroke-linejoin="round" />
+                                    <path d="M4 20h6v-3H4v3Z" stroke="currentColor" stroke-width="2"
+                                        stroke-linejoin="round" />
+                                </svg>
+                                <span>Admin Panel</span>
+                            </a>
 
-                        <a href="{{ route('admin.products.index') }}"
-                            class="btn btn-outline-light rounded-pill fw-bold">
-                            Kelola Produk
-                        </a>
+                            <a href="{{ route('admin.products.index') }}"
+                                class="recy-admin-top-btn recy-admin-btn-primary">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="2"
+                                        stroke-linejoin="round" />
+                                    <path d="M9 8a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                                <span>Kelola Produk</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -50,7 +65,7 @@
                                 <th>Status Order</th>
                                 <th>Pembayaran</th>
                                 <th>Tanggal</th>
-                                <th width="120">Aksi</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
 
@@ -109,10 +124,18 @@
                                         {{ $order->created_at->format('d M Y') }}
                                     </td>
 
-                                    <td>
+                                    <td class="text-center align-middle">
                                         <a href="{{ route('admin.orders.show', $order->id) }}"
-                                            class="btn btn-sm btn-outline-success recy-admin-action">
-                                            Detail
+                                            class="recy-admin-table-btn recy-admin-btn-detail">
+                                            <svg viewBox="0 0 24 24" fill="none">
+                                                <path d="M7 3h10l3 3v15H7V3Z" stroke="currentColor" stroke-width="2"
+                                                    stroke-linejoin="round" />
+                                                <path d="M17 3v4h4" stroke="currentColor" stroke-width="2"
+                                                    stroke-linejoin="round" />
+                                                <path d="M10 11h7M10 15h7M10 19h4" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" />
+                                            </svg>
+                                            <span>Detail</span>
                                         </a>
                                     </td>
                                 </tr>

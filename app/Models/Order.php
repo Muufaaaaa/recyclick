@@ -11,6 +11,7 @@ class Order extends Model
         'order_code',
         'total_price',
         'total_eco_points',
+        'eco_points_awarded',
         'address',
         'phone',
         'payment_method',

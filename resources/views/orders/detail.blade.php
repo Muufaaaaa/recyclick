@@ -3,20 +3,42 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-center flex-wrap mb-4 recy-no-print">
                 <div>
-                    <span class="recy-badge">Invoice Detail</span>
+                    <span class="recy-page-badge">Invoice Detail</span>
                     <h1 class="fw-bold mt-3 mb-1">Detail Pesanan</h1>
                     <p class="text-muted mb-0">
                         Informasi lengkap pesanan dan pembayaran Recyclick.
                     </p>
                 </div>
 
-                <div class="d-flex gap-2 flex-wrap mt-3 mt-md-0">
-                    <a href="{{ route('orders.history') }}" class="recy-btn-outline text-decoration-none">
-                        ← Riwayat
+                <div class="d-flex flex-wrap gap-2 justify-content-end">
+                    <a href="{{ route('orders.history') }}" class="recy-cta-btn recy-cta-btn-outline">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M12 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span>Kembali ke Riwayat</span>
                     </a>
 
-                    <button onclick="window.print()" class="recy-btn-primary">
-                        Print Invoice
+                    <a href="{{ route('products.index') }}" class="recy-cta-btn recy-cta-btn-outline">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M6 6h15l-2 8H8L6 6Z" stroke="currentColor" stroke-width="2"
+                                stroke-linejoin="round" />
+                            <path d="M6 6 5 2H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M9 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" stroke="currentColor" stroke-width="2" />
+                            <path d="M18 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                        <span>Belanja Lagi</span>
+                    </a>
+
+                    <button onclick="window.print()" class="recy-cta-btn recy-cta-btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9V3h12v6" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                            <path d="M6 17H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"
+                                stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                            <path d="M6 14h12v7H6v-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                        </svg>
+                        <span>Print Invoice</span>
                     </button>
                 </div>
             </div>
@@ -157,9 +179,18 @@
                                 <strong>Rp {{ number_format($order->total_price, 0, ',', '.') }}</strong>
                             </div>
 
-                            <div class="d-flex justify-content-between mb-3">
-                                <span>Eco Points</span>
-                                <strong class="text-success">+{{ $order->total_eco_points }}</strong>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>
+                                    @if ($order->eco_points_awarded)
+                                        Eco Points Didapat
+                                    @else
+                                        Eco Points Pending
+                                    @endif
+                                </span>
+
+                                <strong class="{{ $order->eco_points_awarded ? 'text-success' : 'text-warning' }}">
+                                    +{{ $order->total_eco_points }}
+                                </strong>
                             </div>
 
                             <div class="d-flex justify-content-between">
@@ -175,21 +206,20 @@
                         <form action="{{ route('orders.pay', $order->order_code) }}" method="POST" class="mb-3">
                             @csrf
 
-                            <button class="recy-btn-primary">
-                                Simulasikan Pembayaran
+                            <button class="recy-cta-btn recy-cta-btn-primary">
+                                <svg viewBox="0 0 24 24" fill="none" class="recy-payment-icon">
+                                    <path
+                                        d="M3 6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v11A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5v-11Z"
+                                        stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                                    <path d="M3 9h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M7 15l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+
+                                <span>Simulasikan Pembayaran</span>
                             </button>
                         </form>
                     @endif
-
-                    <div class="d-flex justify-content-center gap-2 flex-wrap">
-                        <a href="{{ route('orders.history') }}" class="recy-btn-outline text-decoration-none">
-                            Kembali ke Riwayat
-                        </a>
-
-                        <a href="{{ route('products.index') }}" class="recy-btn-outline text-decoration-none">
-                            Belanja Lagi
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>

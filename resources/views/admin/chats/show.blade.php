@@ -18,8 +18,13 @@
                         </p>
                     </div>
 
-                    <a href="{{ route('admin.chats.index') }}" class="btn btn-light rounded-pill fw-bold text-success">
-                        ← Kembali
+                    <a href="{{ route('admin.chats.index') }}" class="recy-admin-back-btn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M12 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span>Kembali</span>
                     </a>
                 </div>
             </div>
@@ -105,17 +110,34 @@
                             <input type="text" name="message" class="form-control recy-form-control"
                                 placeholder="Tulis balasan admin..." required>
 
-                            <button type="submit" class="recy-btn-primary">
-                                Balas
+                            <button type="submit" class="recy-admin-reply-btn">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M22 2L15 22l-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>Balas</span>
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <div class="alert alert-success rounded-4 mt-4">
-                <strong>Catatan:</strong> Chat admin ini masih versi non-realtime. Untuk pengembangan lanjutan, fitur
-                ini bisa memakai Laravel Reverb/Pusher agar pesan masuk otomatis tanpa refresh.
+            <div class="alert alert-success rounded-4 mt-4 recy-chat-note">
+                <div class="recy-chat-note-icon">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 17v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+                        <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </div>
+
+                <div>
+                    <strong>Catatan:</strong>
+                    Chat admin ini masih versi non-realtime. Untuk pengembangan lanjutan, fitur ini bisa memakai Laravel
+                    Reverb/Pusher agar pesan masuk otomatis tanpa refresh.
+                </div>
             </div>
 
         </div>

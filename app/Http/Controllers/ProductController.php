@@ -10,9 +10,15 @@ class ProductController extends Controller
 {
     public function home()
     {
-        $featuredProducts = Product::latest()->take(4)->get();
+        $featuredProducts = Product::with('category')->latest()->take(4)->get();
 
-        return view('home', compact('featuredProducts'));
+        $categories = Category::withCount('products')->take(4)->get();
+
+        $wishlistProductIds = auth()->check()
+            ? auth()->user()->wishlists()->pluck('product_id')->toArray()
+            : [];
+
+        return view('home', compact('featuredProducts', 'categories', 'wishlistProductIds'));
     }
 
     public function index(Request $request)
@@ -41,11 +47,11 @@ class ProductController extends Controller
     {
         $product->load('category');
 
-        $isWishlisted = auth()->check()
-            ? auth()->user()->wishlists()->where('product_id', $product->id)->exists()
-            : false;
+        $wishlistProductIds = auth()->check()
+            ? auth()->user()->wishlists()->pluck('product_id')->toArray()
+            : [];
 
-        return view('products.show', compact('product', 'isWishlisted'));
+        return view('products.show', compact('product', 'wishlistProductIds'));
     }
 
     public function category(Category $category)

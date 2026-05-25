@@ -18,9 +18,13 @@
                         </p>
                     </div>
 
-                    <a href="{{ route('admin.products.index') }}"
-                        class="btn btn-light rounded-pill fw-bold text-success">
-                        ← Kembali
+                    <a href="{{ route('admin.products.index') }}" class="recy-admin-back-btn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M12 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span>Kembali</span>
                     </a>
                 </div>
             </div>
@@ -113,12 +117,34 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="recy-admin-form-label">Gambar Produk</label>
-                                <input type="file" name="image" class="form-control recy-form-control" accept="image/*">
+                                <label class="form-label fw-semibold">Foto Produk</label>
 
-                                <small class="text-muted">
-                                    Format: JPG, JPEG, PNG, WEBP. Maksimal 2MB.
-                                </small>
+                                <input type="file" name="image" id="productImageInput"
+                                    class="form-control recy-form-control" accept="image/*">
+
+                                <div id="productImagePreviewBox" class="recy-image-preview-box d-none">
+                                    <div class="recy-image-preview-frame">
+                                        <img id="productImagePreview" src="" alt="Preview Foto Produk">
+                                    </div>
+
+                                    <button type="button" id="removeProductImageBtn" class="recy-remove-image-btn">
+                                        <svg viewBox="0 0 24 24" fill="none">
+                                            <path d="M3 6h18" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                            <path d="M8 6V4h8v2" stroke="currentColor" stroke-width="2"
+                                                stroke-linejoin="round" />
+                                            <path d="M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2"
+                                                stroke-linejoin="round" />
+                                            <path d="M10 11v6M14 11v6" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                        <span>Hapus Foto</span>
+                                    </button>
+
+                                    <div class="recy-image-preview-note">
+                                        Foto ini baru preview. Foto akan tersimpan setelah produk dibuat.
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="recy-admin-detail-card">
@@ -158,4 +184,33 @@
 
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const input = document.getElementById('productImageInput');
+            const previewBox = document.getElementById('productImagePreviewBox');
+            const preview = document.getElementById('productImagePreview');
+            const removeBtn = document.getElementById('removeProductImageBtn');
+
+            if (!input || !previewBox || !preview || !removeBtn) return;
+
+            input.addEventListener('change', function () {
+                const file = input.files[0];
+
+                if (!file) {
+                    previewBox.classList.add('d-none');
+                    preview.src = '';
+                    return;
+                }
+
+                preview.src = URL.createObjectURL(file);
+                previewBox.classList.remove('d-none');
+            });
+
+            removeBtn.addEventListener('click', function () {
+                input.value = '';
+                preview.src = '';
+                previewBox.classList.add('d-none');
+            });
+        });
+    </script>
 </x-app-layout>

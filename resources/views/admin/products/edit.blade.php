@@ -18,9 +18,13 @@
                         </p>
                     </div>
 
-                    <a href="{{ route('admin.products.index') }}"
-                        class="btn btn-light rounded-pill fw-bold text-success">
-                        ← Kembali
+                    <a href="{{ route('admin.products.index') }}" class="recy-admin-back-btn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M12 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span>Kembali</span>
                     </a>
                 </div>
             </div>
@@ -103,22 +107,41 @@
                             <div class="mb-4">
                                 <label class="recy-admin-form-label">Gambar Produk</label>
 
-                                @if ($product->image)
-                                    <div class="mb-3">
-                                        <img src="{{ asset('storage/' . $product->image) }}" class="recy-admin-preview-img"
-                                            alt="{{ $product->name }}">
-                                    </div>
-                                @else
-                                    <div
-                                        class="recy-admin-preview-img d-flex align-items-center justify-content-center text-muted mb-3">
-                                        No Image
-                                    </div>
-                                @endif
+                                <input type="file" name="image" id="productImageInput"
+                                    class="form-control recy-form-control" accept="image/*">
 
-                                <input type="file" name="image" class="form-control recy-form-control" accept="image/*">
+                                <input type="hidden" name="remove_image" id="removeImageInput" value="0">
 
-                                <small class="text-muted">
-                                    Kosongkan jika tidak ingin mengganti gambar.
+                                <div id="productImagePreviewBox"
+                                    class="recy-image-preview-box {{ $product->image ? '' : 'd-none' }}">
+
+                                    <div class="recy-image-preview-frame">
+                                        <img id="productImagePreview"
+                                            src="{{ $product->image ? asset('storage/' . $product->image) : '' }}"
+                                            alt="Preview Foto Produk">
+                                    </div>
+
+                                    <button type="button" id="removeProductImageBtn" class="recy-remove-image-btn">
+                                        <svg viewBox="0 0 24 24" fill="none">
+                                            <path d="M3 6h18" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                            <path d="M8 6V4h8v2" stroke="currentColor" stroke-width="2"
+                                                stroke-linejoin="round" />
+                                            <path d="M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2"
+                                                stroke-linejoin="round" />
+                                            <path d="M10 11v6M14 11v6" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                        <span>Hapus Foto</span>
+                                    </button>
+
+                                    <div class="recy-image-preview-note">
+                                        Klik Hapus Foto lalu simpan perubahan untuk menghapus foto produk.
+                                    </div>
+                                </div>
+
+                                <small class="text-muted d-block mt-2">
+                                    Pilih file baru jika ingin mengganti gambar.
                                 </small>
                             </div>
 
@@ -151,7 +174,7 @@
                     <hr class="my-4">
 
                     <div class="d-flex gap-2 flex-wrap">
-                        <button class="recy-btn-primary">
+                        <button type="submit" class="recy-btn-primary">
                             Update Produk
                         </button>
 
@@ -164,4 +187,35 @@
 
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const input = document.getElementById('productImageInput');
+            const previewBox = document.getElementById('productImagePreviewBox');
+            const preview = document.getElementById('productImagePreview');
+            const removeBtn = document.getElementById('removeProductImageBtn');
+            const removeInput = document.getElementById('removeImageInput');
+
+            if (!input || !previewBox || !preview || !removeBtn || !removeInput) return;
+
+            input.addEventListener('change', function () {
+                const file = input.files[0];
+
+                if (!file) {
+                    return;
+                }
+
+                preview.src = URL.createObjectURL(file);
+                previewBox.classList.remove('d-none');
+                removeInput.value = '0';
+            });
+
+            removeBtn.addEventListener('click', function () {
+                input.value = '';
+                preview.src = '';
+                previewBox.classList.add('d-none');
+                removeInput.value = '1';
+            });
+        });
+    </script>
 </x-app-layout>

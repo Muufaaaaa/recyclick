@@ -10,20 +10,44 @@
                 </div>
 
                 <div class="d-flex gap-2 mt-3 mt-md-0 flex-wrap">
-                    <a href="{{ route('admin.products.index') }}" class="btn btn-outline-success rounded-pill">
-                        Kelola Produk
+                    <a href="{{ route('admin.products.index') }}" class="recy-admin-icon-btn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="2"
+                                stroke-linejoin="round" />
+                            <path d="M9 8a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                        <span>Kelola Produk</span>
                     </a>
 
-                    <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-success rounded-pill">
-                        Kelola Kategori
+                    <a href="{{ route('admin.categories.index') }}" class="recy-admin-icon-btn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M4 6h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M8 4v4M16 10v4M10 16v4" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                        <span>Kelola Kategori</span>
                     </a>
 
-                    <a href="{{ route('admin.orders.index') }}" class="btn btn-outline-success rounded-pill">
-                        Kelola Order
+                    <a href="{{ route('admin.orders.index') }}" class="recy-admin-icon-btn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M7 3h10l3 3v15H7V3Z" stroke="currentColor" stroke-width="2"
+                                stroke-linejoin="round" />
+                            <path d="M17 3v4h4" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                            <path d="M10 12h7M10 16h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        <span>Kelola Order</span>
                     </a>
 
-                    <a href="{{ route('admin.chats.index') }}" class="btn btn-outline-success rounded-pill">
-                        Chat Pelanggan
+                    <a href="{{ route('admin.chats.index') }}" class="recy-admin-icon-btn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5A8.48 8.48 0 0 1 21 11v.5Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span>Chat Pelanggan</span>
                     </a>
                 </div>
             </div>
@@ -161,8 +185,14 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.products.edit', $product->id) }}"
-                                                class="btn btn-sm btn-outline-success rounded-pill">
-                                                Edit Stok
+                                                class="recy-admin-icon-btn recy-admin-icon-btn-sm">
+                                                <svg viewBox="0 0 24 24" fill="none">
+                                                    <path d="M12 20h9" stroke="currentColor" stroke-width="2"
+                                                        stroke-linecap="round" />
+                                                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z"
+                                                        stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                                                </svg>
+                                                <span>Edit Stok</span>
                                             </a>
                                         </td>
                                     </tr>

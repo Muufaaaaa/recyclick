@@ -2,9 +2,16 @@
     <div class="recy-page py-5">
         <div class="container">
 
-            <a href="{{ route('products.index') }}" class="recy-btn-outline text-decoration-none d-inline-block mb-4">
-                ← Kembali ke Katalog
-            </a>
+            <div class="mb-5">
+                <a href="{{ route('products.index') }}" class="recy-catalog-btn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M4 7h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <span>Katalog</span>
+                </a>
+            </div>
 
             @if (session('success'))
                 <div class="alert alert-success rounded-4">
@@ -26,9 +33,8 @@
                 <div class="col-lg-6">
                     <div class="recy-detail-image-wrap">
                         @if ($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}"
-                                 alt="{{ $product->name }}"
-                                 class="recy-detail-image">
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                                class="recy-detail-image">
                         @else
                             <div class="recy-detail-image d-flex align-items-center justify-content-center text-muted">
                                 No Image
@@ -70,14 +76,6 @@
                                     {{ $product->eco_badge }}
                                 </span>
                             @endif
-
-                            @auth
-                                @if ($isWishlisted)
-                                    <span class="badge bg-danger rounded-pill">
-                                        ♥ Sudah di Wishlist
-                                    </span>
-                                @endif
-                            @endauth
                         </div>
 
                         <h1 class="fw-bold mb-2">
@@ -118,7 +116,8 @@
                             </h5>
 
                             <p class="text-muted mb-2">
-                                Dengan membeli produk ini, kamu ikut mendukung gaya hidup berkelanjutan dan mengurangi penggunaan barang sekali pakai.
+                                Dengan membeli produk ini, kamu ikut mendukung gaya hidup berkelanjutan dan mengurangi
+                                penggunaan barang sekali pakai.
                             </p>
 
                             <div class="d-flex justify-content-between">
@@ -144,38 +143,102 @@
                         </div>
 
                         @auth
-                            <div class="d-grid gap-2">
+                            <div class="recy-action-row mt-4">
+                                {{-- Wishlist --}}
+                                <form action="{{ route('wishlist.toggle', $product->slug) }}" method="POST"
+                                    class="recy-inline-form">
+                                    @csrf
+
+                                    <button type="submit"
+                                        class="recy-action-icon-btn recy-action-wishlist {{ in_array($product->id, $wishlistProductIds ?? []) ? 'active' : '' }}"
+                                        title="{{ in_array($product->id, $wishlistProductIds ?? []) ? 'Hapus dari Wishlist' : 'Tambah ke Wishlist' }}"
+                                        aria-label="Wishlist">
+                                        <svg viewBox="0 0 24 24" fill="none">
+                                            <path
+                                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                </form>
+
+                                {{-- Add to cart --}}
                                 @if ($product->stock > 0)
-                                    <form action="{{ route('cart.store', $product->slug) }}" method="POST">
+                                    <form action="{{ route('cart.store', $product->slug) }}" method="POST"
+                                        class="recy-inline-form">
                                         @csrf
-                                        <button type="submit" class="recy-btn-primary w-100">
-                                            Tambah ke Keranjang
+
+                                        <button type="submit" class="recy-action-icon-btn recy-action-detail"
+                                            title="Tambah ke Keranjang" aria-label="Tambah ke Keranjang">
+                                            <svg viewBox="0 0 24 24" fill="none">
+                                                <path d="M6 6h15l-2 8H8L6 6Z" stroke="currentColor" stroke-width="2"
+                                                    stroke-linejoin="round" />
+                                                <path d="M6 6 5 2H2" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" />
+                                                <path d="M9 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" stroke="currentColor"
+                                                    stroke-width="2" />
+                                                <path d="M18 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" stroke="currentColor"
+                                                    stroke-width="2" />
+                                            </svg>
                                         </button>
                                     </form>
                                 @else
-                                    <button class="btn btn-secondary rounded-pill w-100 py-2" disabled>
-                                        Stok Habis
+                                    <button type="button" class="recy-action-icon-btn recy-action-detail opacity-50" disabled
+                                        title="Stok Habis" aria-label="Stok Habis">
+                                        <svg viewBox="0 0 24 24" fill="none">
+                                            <path d="M6 6h15l-2 8H8L6 6Z" stroke="currentColor" stroke-width="2"
+                                                stroke-linejoin="round" />
+                                            <path d="M6 6 5 2H2" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
                                     </button>
                                 @endif
 
-                                <form action="{{ route('wishlist.toggle', $product->slug) }}" method="POST">
-                                    @csrf
+                                {{-- Buy now --}}
+                                @if ($product->stock > 0)
+                                    <form action="{{ route('buy.now', $product->slug) }}" method="POST"
+                                        class="recy-inline-form">
+                                        @csrf
 
-                                    @if ($isWishlisted)
-                                        <button type="submit" class="btn btn-danger rounded-pill w-100 py-2">
-                                            ♥ Sudah di Wishlist
+                                        <button type="submit" class="recy-action-icon-btn recy-action-buy"
+                                            title="Pesan Sekarang" aria-label="Pesan Sekarang">
+                                            <svg viewBox="0 0 24 24" fill="none">
+                                                <path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="2"
+                                                    stroke-linejoin="round" />
+                                                <path d="M9 8a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" />
+                                                <path d="M9.5 14l1.8 1.8 3.7-4" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
                                         </button>
-                                    @else
-                                        <button type="submit" class="btn btn-outline-danger rounded-pill w-100 py-2">
-                                            ♡ Tambah ke Wishlist
-                                        </button>
-                                    @endif
-                                </form>
+                                    </form>
+                                @else
+                                    <button type="button" class="recy-action-icon-btn recy-action-buy opacity-50" disabled
+                                        title="Stok Habis" aria-label="Stok Habis">
+                                        <svg viewBox="0 0 24 24" fill="none">
+                                            <path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="2"
+                                                stroke-linejoin="round" />
+                                            <path d="M9 8a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" />
+                                            <path d="M9.5 14l1.8 1.8 3.7-4" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                @endif
                             </div>
                         @endauth
 
                         @guest
                             <div class="alert alert-success rounded-4 mt-4">
+                                <div class="recy-chat-note-icon">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <path d="M12 17v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                        <path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+                                        <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor"
+                                            stroke-width="2" />
+                                    </svg>
+                                </div>
+
                                 Login terlebih dahulu untuk menambahkan produk ke keranjang atau wishlist.
                             </div>
 

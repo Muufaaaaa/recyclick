@@ -81,8 +81,16 @@ class ProductController extends Controller
 
         $imagePath = $product->image;
 
+        if ($request->has('remove_image') && $request->remove_image == 1) {
+            if ($product->image && Storage::disk('public')->exists($product->image)) {
+                Storage::disk('public')->delete($product->image);
+            }
+
+            $imagePath = null;
+        }
+
         if ($request->hasFile('image')) {
-            if ($product->image) {
+            if ($product->image && Storage::disk('public')->exists($product->image)) {
                 Storage::disk('public')->delete($product->image);
             }
 

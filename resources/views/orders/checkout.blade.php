@@ -3,15 +3,21 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
                 <div>
-                    <span class="recy-badge">Checkout</span>
+                    <span class="recy-page-badge">Checkout</span>
                     <h1 class="fw-bold mt-3 mb-1">Checkout Pesanan</h1>
                     <p class="text-muted mb-0">
                         Lengkapi data pengiriman dan pilih metode pembayaran.
                     </p>
                 </div>
 
-                <a href="{{ route('cart.index') }}" class="recy-btn-outline text-decoration-none mt-3 mt-md-0">
-                    ← Kembali ke Keranjang
+                <a href="{{ route('cart.index') }}" class="recy-checkout-action recy-checkout-outline mt-3 mt-md-0">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M6 6h15l-2 8H8L6 6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M6 6 5 2H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <path d="M9 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" stroke="currentColor" stroke-width="2" />
+                        <path d="M18 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                    <span>Keranjang</span>
                 </a>
             </div>
 
@@ -78,8 +84,16 @@
                                 </small>
                             </div>
 
-                            <button type="submit" class="recy-btn-primary w-100">
-                                Buat Pesanan
+                            <button type="submit" class="recy-checkout-action recy-checkout-primary w-100">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M7 4h10l2 4v12H5V8l2-4Z" stroke="currentColor" stroke-width="2"
+                                        stroke-linejoin="round" />
+                                    <path d="M9 8a3 3 0 0 0 6 0" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" />
+                                    <path d="M9.5 15l1.8 1.8 3.7-4" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span>Buat Pesanan</span>
                             </button>
                         </form>
                     </div>
@@ -87,7 +101,7 @@
 
                 <div class="col-lg-5">
                     <div class="recy-summary-card">
-                        <span class="recy-badge">Order Review</span>
+                        <span class="recy-page-badge">Order Review</span>
 
                         <h4 class="fw-bold mt-3 mb-4">
                             Ringkasan Pesanan

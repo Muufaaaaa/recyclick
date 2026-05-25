@@ -321,28 +321,6 @@ body {
     padding: 18px 0;
 }
 
-.recy-logo-animated {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: #063d27;
-    font-weight: 900;
-    font-size: 22px;
-    letter-spacing: -0.8px;
-}
-
-.recy-logo-icon {
-    display: inline-flex;
-    width: 30px;
-    height: 30px;
-    align-items: center;
-    justify-content: center;
-    background: #eaf7ef;
-    color: #0f6b3f;
-    border-radius: 10px;
-    animation: recySpinSoft 3.8s ease-in-out infinite;
-}
-
 @keyframes recySpinSoft {
     0%, 100% {
         transform: rotate(0deg) scale(1);
@@ -1645,5 +1623,2349 @@ body {
 
     .recy-auth-form {
         padding: 32px;
+    }
+}
+
+/* ===== Navbar Layout Refinement ===== */
+
+.recy-navbar-layout {
+    display: grid;
+    grid-template-columns: auto auto minmax(280px, 1fr) auto;
+    align-items: center;
+    gap: 28px;
+}
+
+.recy-wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #14532d;
+    white-space: nowrap;
+}
+
+.recy-wordmark-symbol {
+    width: 30px;
+    height: 30px;
+    border-radius: 12px;
+    background: #eaf7ef;
+    color: #0f6b3f;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    animation: recyRecycleSpin 3.5s ease-in-out infinite;
+}
+
+.recy-wordmark-text {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #14532d;
+    line-height: 1;
+}
+
+.recy-wordmark-text::first-letter {
+    color: #0f6b3f;
+}
+
+.recy-navbar-search {
+    width: 100%;
+    max-width: none;
+    justify-self: stretch;
+}
+
+.recy-navbar-actions {
+    justify-self: end;
+    white-space: nowrap;
+}
+
+.recy-desktop-menu {
+    justify-self: start;
+    white-space: nowrap;
+}
+
+.recy-nav-search {
+    background: #f3f4f6;
+    border-radius: 999px;
+    padding: 4px 6px 4px 18px;
+    height: 46px;
+}
+
+.recy-nav-search input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-size: 14px;
+}
+
+.recy-nav-search button {
+    border: none;
+    background: #0f6b3f;
+    color: #ffffff;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 1200px) {
+    .recy-navbar-layout {
+        grid-template-columns: auto auto minmax(220px, 1fr) auto;
+        gap: 20px;
+    }
+
+    .recy-desktop-menu {
+        gap: 18px !important;
+    }
+
+    .recy-wordmark-text {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    .recy-navbar-layout {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+/* ===== Auth Page Badge Fix ===== */
+
+.recy-auth-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #0f6b3f;
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 9px 18px;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.2px;
+    box-shadow: 0 8px 18px rgba(15, 107, 63, 0.18);
+}
+
+/* ===== Navbar Icon Actions ===== */
+
+.recy-icon-actions {
+    gap: 9px !important;
+}
+
+.recy-nav-icon-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    color: #14532d;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 0;
+    transition: 0.22s ease;
+    position: relative;
+}
+
+.recy-nav-icon-btn svg {
+    width: 19px;
+    height: 19px;
+    transition: 0.22s ease;
+}
+
+.recy-nav-icon-btn:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+    border-color: #0f6b3f;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(15, 107, 63, 0.18);
+}
+
+.recy-nav-icon-btn:hover svg {
+    animation: recyNavIconBounce 0.55s ease;
+}
+
+@keyframes recyNavIconBounce {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+
+    45% {
+        transform: translateY(-3px) scale(1.08);
+    }
+
+    70% {
+        transform: translateY(1px) scale(0.98);
+    }
+}
+
+.recy-nav-icon-points {
+    height: 42px;
+    min-width: 58px;
+    border-radius: 999px;
+    background: #eaf7ef;
+    color: #0f6b3f;
+    border: 1px solid rgba(15, 107, 63, 0.18);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 12px;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.recy-nav-icon-points span {
+    display: inline-block;
+    animation: recyRecycleSpin 3.5s ease-in-out infinite;
+}
+
+.recy-icon-heart:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+}
+
+.recy-icon-cart-nav:hover {
+    background: #0f6b3f;
+}
+
+.recy-icon-chat-nav:hover {
+    background: #0ea5e9;
+    border-color: #0ea5e9;
+}
+
+.recy-icon-admin {
+    background: #0f6b3f;
+    color: #ffffff;
+    border-color: #0f6b3f;
+}
+
+.recy-icon-admin:hover {
+    background: #064e2d;
+    border-color: #064e2d;
+}
+
+.recy-icon-logout {
+    color: #dc2626;
+    border-color: #fecaca;
+}
+
+.recy-icon-logout:hover {
+    background: #dc2626;
+    color: #ffffff;
+    border-color: #dc2626;
+}
+
+.recy-navbar-actions {
+    min-width: max-content;
+}
+
+@media (max-width: 1200px) {
+    .recy-nav-icon-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    .recy-nav-icon-btn svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .recy-nav-icon-points {
+        height: 38px;
+        min-width: 52px;
+        font-size: 12px;
+    }
+}
+
+/* ===== Home Wishlist Button ===== */
+
+.recy-heart {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    color: #dc2626;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.recy-heart:hover {
+    background: #dc2626;
+    color: #ffffff;
+    border-color: #dc2626;
+    transform: scale(1.08);
+}
+
+.recy-heart-active {
+    background: #dc2626;
+    color: #ffffff;
+    border-color: #dc2626;
+}
+
+/* ===== Home Section Fixes ===== */
+
+.recy-category-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.recy-category-link:hover {
+    color: inherit;
+}
+
+.recy-category-mini {
+    min-height: 78px;
+}
+
+.recy-category-icon span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.recy-news-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.recy-news-top .recy-animated-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.recy-news-top .recy-badge {
+    display: inline-flex;
+    align-items: center;
+    height: fit-content;
+}
+
+.recy-news-card h4 {
+    font-size: 18px;
+    line-height: 1.25;
+}
+
+.recy-news-card p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.recy-impact-banner::after {
+    pointer-events: none;
+    z-index: 1;
+}
+
+.recy-impact-content {
+    position: relative;
+    z-index: 2;
+}
+
+.recy-impact-label {
+    display: inline-flex;
+    background: #ffffff;
+    color: #0f6b3f;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+.recy-impact-title {
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.15;
+}
+
+.recy-impact-text {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.84);
+    margin-bottom: 0;
+}
+
+.recy-impact-button {
+    position: relative;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #0f6b3f;
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 13px 24px;
+    font-weight: 800;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+    transition: 0.2s ease;
+}
+
+.recy-impact-button:hover {
+    background: #eaf7ef;
+    color: #064e2d;
+    transform: translateY(-2px);
+}
+
+/* ===== Product Page Header Fix ===== */
+
+.recy-page-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #0f6b3f;
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 9px 16px;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    box-shadow: 0 8px 18px rgba(15, 107, 63, 0.18);
+}
+
+.recy-search-icon-btn {
+    background: #0f6b3f;
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    height: 48px;
+    width: 100%;
+    min-width: 86px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.22s ease;
+}
+
+.recy-search-icon-btn svg {
+    width: 22px;
+    height: 22px;
+    transition: 0.22s ease;
+}
+
+.recy-search-icon-btn:hover {
+    background: #064e2d;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-search-icon-btn:hover svg {
+    animation: recySearchPulse 0.7s ease;
+}
+
+@keyframes recySearchPulse {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    45% {
+        transform: scale(1.18) rotate(-8deg);
+    }
+
+    70% {
+        transform: scale(0.96) rotate(4deg);
+    }
+}
+
+/* ===== Animated Home Button ===== */
+
+.recy-home-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #ffffff;
+    color: #0f6b3f;
+    border: 1px solid #0f6b3f;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: 0.22s ease;
+}
+
+.recy-home-btn svg {
+    width: 19px;
+    height: 19px;
+    transition: 0.22s ease;
+}
+
+.recy-home-btn:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-home-btn:hover svg {
+    animation: recyHomeBounce 0.65s ease;
+}
+
+@keyframes recyHomeBounce {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+
+    45% {
+        transform: translateY(-3px) scale(1.08);
+    }
+
+    70% {
+        transform: translateY(1px) scale(0.98);
+    }
+}
+
+/* ===== Auth Home Button Position ===== */
+
+.recy-auth-form {
+    position: relative;
+}
+
+.recy-auth-home-top {
+    position: absolute;
+    top: 28px;
+    right: 32px;
+    padding: 8px 15px;
+    font-size: 13px;
+}
+
+@media (max-width: 768px) {
+    .recy-auth-home-top {
+        position: static;
+        margin-bottom: 20px;
+    }
+}
+
+/* ===== Modern Confirm Modal ===== */
+
+.recy-confirm-modal {
+    border: none;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 28px 80px rgba(15, 23, 42, 0.24);
+}
+
+.recy-confirm-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 24px;
+    background: #fee2e2;
+    color: #dc2626;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    font-weight: 900;
+    animation: recyConfirmPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes recyConfirmPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+.recy-btn-danger {
+    background: #dc2626;
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-weight: 800;
+    transition: 0.22s ease;
+}
+
+.recy-btn-danger:hover {
+    background: #991b1b;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(220, 38, 38, 0.22);
+}
+
+/* ===== Product Action UI Modern ===== */
+
+.recy-catalog-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #ffffff;
+    color: #0f6b3f;
+    border: 1px solid #0f6b3f;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: 0.22s ease;
+}
+
+.recy-catalog-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: 0.22s ease;
+}
+
+.recy-catalog-btn:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-catalog-btn:hover svg {
+    animation: recyHomeBounce 0.65s ease;
+}
+
+/* action row */
+.recy-action-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+}
+
+.recy-action-row > * {
+    flex: 1;
+}
+
+/* icon button modern */
+.recy-action-icon-btn {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: 0.22s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.recy-action-icon-btn svg {
+    width: 20px;
+    height: 20px;
+    transition: 0.22s ease;
+}
+
+.recy-action-icon-btn:hover {
+    transform: translateY(-2px);
+}
+
+.recy-action-icon-btn:hover svg {
+    animation: recyNavIconBounce 0.55s ease;
+}
+
+/* wishlist */
+.recy-action-wishlist {
+    background: #ffffff;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.recy-action-wishlist:hover,
+.recy-action-wishlist.active {
+    background: #dc2626;
+    color: #ffffff;
+    border-color: #dc2626;
+    box-shadow: 0 10px 24px rgba(220, 38, 38, 0.18);
+}
+
+/* Add to cart: soft green */
+.recy-action-detail {
+    background: #eaf7ef;
+    color: #0f6b3f;
+    border: 1px solid rgba(15, 107, 63, 0.18);
+}
+
+.recy-action-detail:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+    border-color: #0f6b3f;
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+/* Buy now: primary green */
+.recy-action-buy {
+    background: #0f6b3f;
+    color: #ffffff;
+    border: 1px solid #0f6b3f;
+}
+
+.recy-action-buy:hover {
+    background: #064e2d;
+    color: #ffffff;
+    border-color: #064e2d;
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-action-buy:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+    border-color: #0f6b3f;
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+/* top-right heart on cards */
+.recy-card-wishlist {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 3;
+}
+
+.recy-card-wishlist form,
+.recy-card-wishlist a {
+    display: inline-flex;
+}
+
+/* small icon row for product cards */
+.recy-card-action-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.recy-card-action-row > * {
+    flex: 1;
+}
+
+.recy-card-action-btn {
+    height: 42px;
+}
+
+.recy-card-action-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* prevent button form weird spacing */
+.recy-inline-form {
+    margin: 0;
+    width: 100%;
+}
+
+.recy-inline-form button {
+    width: 100%;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+    .recy-action-row {
+        gap: 8px;
+    }
+
+    .recy-action-icon-btn {
+        height: 44px;
+    }
+
+    .recy-catalog-btn {
+        padding: 9px 15px;
+        font-size: 13px;
+    }
+}
+
+/* ===== Shop CTA Button With Animated Icon ===== */
+
+.recy-shop-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #0f6b3f;
+    color: #ffffff;
+    border: 1px solid #0f6b3f;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: 0.22s ease;
+}
+
+.recy-shop-cta svg {
+    width: 18px;
+    height: 18px;
+    transition: 0.22s ease;
+}
+
+.recy-shop-cta:hover {
+    background: #064e2d;
+    color: #ffffff;
+    border-color: #064e2d;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-shop-cta:hover svg {
+    animation: recyCartWiggle 0.7s ease;
+}
+
+.recy-shop-cta-outline {
+    background: #ffffff;
+    color: #0f6b3f;
+    border-color: #0f6b3f;
+}
+
+.recy-shop-cta-outline:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+}
+
+@keyframes recyCartWiggle {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+
+    35% {
+        transform: translateX(3px) rotate(-6deg);
+    }
+
+    70% {
+        transform: translateX(-1px) rotate(4deg);
+    }
+}
+
+.recy-empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recy-empty-content p {
+    margin-bottom: 18px;
+}
+
+.recy-empty-content .recy-shop-cta {
+    margin-top: 4px;
+}
+
+/* ===== Invoice / Order Action Button With Icon ===== */
+
+.recy-invoice-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 800;
+    text-decoration: none;
+    border: 1px solid #0f6b3f;
+    color: #0f6b3f;
+    background: #ffffff;
+    transition: 0.22s ease;
+}
+
+.recy-invoice-action svg {
+    width: 17px;
+    height: 17px;
+    transition: 0.22s ease;
+}
+
+.recy-invoice-action:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-invoice-action:hover svg {
+    animation: recyNavIconBounce 0.55s ease;
+}
+
+.recy-invoice-action-primary {
+    background: #0f6b3f;
+    color: #ffffff;
+    border-color: #0f6b3f;
+}
+
+.recy-invoice-action-primary:hover {
+    background: #064e2d;
+    color: #ffffff;
+    border-color: #064e2d;
+}
+
+/* ===== Invoice Print One Page Optimization ===== */
+
+@media print {
+    @page {
+        size: A4;
+        margin: 8mm;
+    }
+
+    html,
+    body {
+        width: 210mm;
+        min-height: auto !important;
+        background: #ffffff !important;
+        font-size: 11px !important;
+    }
+
+    nav,
+    .recy-no-print,
+    .recy-shop-navbar,
+    .recy-page-badge {
+        display: none !important;
+    }
+
+    .recy-page {
+        background: #ffffff !important;
+        padding: 0 !important;
+        min-height: auto !important;
+    }
+
+    .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .recy-invoice-box {
+        max-width: 100% !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+    }
+
+    .recy-invoice-header {
+        padding-bottom: 10px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .recy-eco-box {
+        padding: 12px !important;
+        border-radius: 12px !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .recy-invoice-row {
+        padding: 7px 0 !important;
+    }
+
+    .recy-invoice-product {
+        padding: 8px 0 !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .row,
+    .col-md-6,
+    .col-md-5,
+    .col-md-12 {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    h1, h2, h3, h4, h5, p {
+        margin-top: 0 !important;
+    }
+
+    .mb-4 {
+        margin-bottom: 12px !important;
+    }
+
+    .my-4 {
+        margin-top: 12px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .mt-4 {
+        margin-top: 12px !important;
+    }
+}
+
+/* ===== Modern Success Hero ===== */
+
+.recy-success-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.recy-success-visual {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.recy-success-icon-wrap {
+    position: relative;
+    width: 84px;
+    height: 84px;
+    border-radius: 26px;
+    background: linear-gradient(135deg, #dff7e7, #c8efd7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 18px 45px rgba(15, 107, 63, 0.16);
+    overflow: hidden;
+}
+
+.recy-success-icon-wrap::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background: radial-gradient(circle, rgba(255,255,255,0.45) 0%, transparent 60%);
+    animation: recySuccessGlow 2.6s ease-in-out infinite;
+}
+
+.recy-success-icon-wrap svg {
+    width: 34px;
+    height: 34px;
+    color: #0f6b3f;
+    position: relative;
+    z-index: 2;
+    animation: recySuccessFloat 2.4s ease-in-out infinite;
+}
+
+.recy-success-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #0f6b3f;
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 20px;
+    font-weight: 800;
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-success-status .dot {
+    width: 8px;
+    height: 8px;
+    background: #7ef3ab;
+    border-radius: 999px;
+    animation: recyDotPulse 1.2s ease-in-out infinite;
+}
+
+.recy-success-title {
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 800;
+    color: #183153;
+    margin-bottom: 8px;
+}
+
+.recy-success-subtitle {
+    color: #5f6c7b;
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+@keyframes recySuccessGlow {
+    0%, 100% {
+        transform: scale(0.95);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+}
+
+@keyframes recySuccessFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+@keyframes recyDotPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.35);
+        opacity: 1;
+    }
+}
+
+/* ===== CTA Buttons With Animated Icons ===== */
+
+.recy-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 800;
+    border: 1px solid #0f6b3f;
+    transition: 0.22s ease;
+    cursor: pointer;
+}
+
+.recy-cta-btn svg {
+    width: 17px;
+    height: 17px;
+    transition: 0.22s ease;
+}
+
+.recy-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-cta-btn:hover svg {
+    animation: recyBtnIconMove 0.6s ease;
+}
+
+.recy-cta-btn-primary {
+    background: #0f6b3f;
+    color: #ffffff;
+    border-color: #0f6b3f;
+}
+
+.recy-cta-btn-primary:hover {
+    background: #064e2d;
+    color: #ffffff;
+    border-color: #064e2d;
+}
+
+.recy-cta-btn-outline {
+    background: #ffffff;
+    color: #0f6b3f;
+}
+
+.recy-cta-btn-outline:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+}
+
+.recy-cta-btn-soft {
+    background: #eaf7ef;
+    color: #0f6b3f;
+    border-color: rgba(15, 107, 63, 0.18);
+}
+
+.recy-cta-btn-soft:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+    border-color: #0f6b3f;
+}
+
+.recy-cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+@keyframes recyBtnIconMove {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+    35% {
+        transform: translateX(2px) rotate(-6deg);
+    }
+    70% {
+        transform: translateX(-1px) rotate(4deg);
+    }
+}
+
+/* ===== Payment Icon Animation ===== */
+
+.recy-payment-icon {
+    transform-origin: center;
+}
+
+.recy-cta-btn:hover .recy-payment-icon {
+    animation: recyPaymentTap 0.75s ease;
+}
+
+@keyframes recyPaymentTap {
+    0%, 100% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    35% {
+        transform: rotate(-7deg) scale(1.08);
+    }
+
+    65% {
+        transform: rotate(5deg) scale(0.98);
+    }
+}
+
+/* ===== Wishlist Page Fix ===== */
+
+.recy-wishlist-empty {
+    min-height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recy-wishlist-empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.recy-wishlist-empty-content p {
+    margin-bottom: 18px;
+}
+
+.recy-wishlist-card-fixed {
+    min-height: 100%;
+}
+
+.recy-wishlist-card-fixed .recy-product-body {
+    min-height: 250px;
+}
+
+/* ===== Cart Page Fix ===== */
+
+.recy-cart-empty {
+    min-height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recy-cart-empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.recy-cart-empty-content p {
+    margin-bottom: 18px;
+}
+
+.recy-cart-qty-wrap {
+    min-width: 150px;
+}
+
+.recy-cart-qty-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.recy-cart-qty-input {
+    width: 72px;
+    height: 42px;
+    border-radius: 14px;
+    border: 1px solid rgba(15, 107, 63, 0.18);
+    padding: 0 12px;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.recy-cart-qty-input:focus {
+    border-color: #0f6b3f;
+    box-shadow: 0 0 0 4px rgba(15, 107, 63, 0.08);
+}
+
+.recy-cart-plus-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    border: 1px solid #0f6b3f;
+    background: #0f6b3f;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: 0.22s ease;
+}
+
+.recy-cart-plus-btn:hover {
+    background: #064e2d;
+    border-color: #064e2d;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-cart-plus-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.recy-cart-checkout-btn {
+    width: 100%;
+}
+
+/* ===== Cart Quantity Stepper ===== */
+
+.recy-qty-stepper {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    border: 1px solid rgba(15, 107, 63, 0.14);
+    border-radius: 999px;
+    padding: 6px;
+}
+
+.recy-qty-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: none;
+    background: #0f6b3f;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+    line-height: 1;
+}
+
+.recy-qty-btn:hover {
+    background: #064e2d;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(15, 107, 63, 0.18);
+}
+
+.recy-qty-btn:disabled {
+    background: #d1d5db;
+    color: #6b7280;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.recy-qty-number {
+    min-width: 28px;
+    text-align: center;
+    font-weight: 800;
+    color: #102033;
+}
+
+.recy-qty-form {
+    margin: 0;
+}
+
+/* ===== Chat Page Icon Polish ===== */
+
+.recy-chat-product-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #ffffff;
+    color: #0f6b3f;
+    border: 1px solid #0f6b3f;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: 0.22s ease;
+}
+
+.recy-chat-product-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: 0.22s ease;
+}
+
+.recy-chat-product-btn:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-chat-product-btn:hover svg {
+    animation: recyCartWiggle 0.7s ease;
+}
+
+.recy-chat-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 18px;
+    background: #eaf7ef;
+    color: #0f6b3f;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.12);
+}
+
+.recy-chat-avatar svg {
+    width: 24px;
+    height: 24px;
+    animation: recyChatFloat 2.3s ease-in-out infinite;
+}
+
+.recy-chat-empty-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 24px;
+    background: #eaf7ef;
+    color: #0f6b3f;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    box-shadow: 0 14px 34px rgba(15, 107, 63, 0.12);
+}
+
+.recy-chat-empty-icon svg {
+    width: 34px;
+    height: 34px;
+    animation: recyChatFloat 2.3s ease-in-out infinite;
+}
+
+.recy-send-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #0f6b3f;
+    color: #ffffff;
+    border: none;
+    border-radius: 0 18px 18px 0;
+    padding: 0 20px;
+    font-weight: 800;
+    transition: 0.22s ease;
+}
+
+.recy-send-btn svg {
+    width: 17px;
+    height: 17px;
+    transition: 0.22s ease;
+}
+
+.recy-send-btn:hover {
+    background: #064e2d;
+}
+
+.recy-send-btn:hover svg {
+    animation: recySendFly 0.65s ease;
+}
+
+.recy-chat-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.recy-chat-note-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 12px;
+    background: #0f6b3f;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.recy-chat-note-icon svg {
+    width: 17px;
+    height: 17px;
+    animation: recyDotPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes recyChatFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+@keyframes recySendFly {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+
+    40% {
+        transform: translateX(4px) rotate(-10deg);
+    }
+
+    75% {
+        transform: translateX(-1px) rotate(4deg);
+    }
+}
+
+.recy-chat-avatar-emoji {
+    font-size: 24px;
+    line-height: 1;
+    animation: recyChatFloat 2.3s ease-in-out infinite;
+}
+
+/* ===== Checkout Action Buttons ===== */
+
+.recy-checkout-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 800;
+    text-decoration: none;
+    border: 1px solid #0f6b3f;
+    transition: 0.22s ease;
+}
+
+.recy-checkout-action svg {
+    width: 18px;
+    height: 18px;
+    transition: 0.22s ease;
+}
+
+.recy-checkout-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-checkout-action:hover svg {
+    animation: recyCheckoutIconMove 0.65s ease;
+}
+
+.recy-checkout-outline {
+    background: #ffffff;
+    color: #0f6b3f;
+}
+
+.recy-checkout-outline:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+}
+
+.recy-checkout-primary {
+    background: #0f6b3f;
+    color: #ffffff;
+    border-color: #0f6b3f;
+}
+
+.recy-checkout-primary:hover {
+    background: #064e2d;
+    color: #ffffff;
+    border-color: #064e2d;
+}
+
+@keyframes recyCheckoutIconMove {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+
+    35% {
+        transform: translateX(2px) rotate(-6deg);
+    }
+
+    70% {
+        transform: translateX(-1px) rotate(4deg);
+    }
+}
+
+/* ===== Dashboard Admin Access Card ===== */
+
+.recy-admin-access-card {
+    background: linear-gradient(135deg, #064e2d, #0f6b3f);
+    color: #ffffff;
+    border-radius: 28px;
+    padding: 24px;
+    box-shadow: 0 18px 44px rgba(15, 107, 63, 0.16);
+    position: relative;
+    overflow: hidden;
+}
+
+.recy-admin-access-card::after {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    right: -45px;
+    top: -45px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+}
+
+.recy-admin-access-content {
+    position: relative;
+    z-index: 2;
+}
+
+.recy-admin-access-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.16);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.recy-admin-access-icon svg {
+    width: 24px;
+    height: 24px;
+    animation: recyShieldFloat 2.4s ease-in-out infinite;
+}
+
+.recy-admin-access-card p {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.recy-admin-access-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #ffffff;
+    color: #0f6b3f;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: 0.22s ease;
+}
+
+.recy-admin-access-btn svg {
+    width: 17px;
+    height: 17px;
+    transition: 0.22s ease;
+}
+
+.recy-admin-access-btn:hover {
+    color: #064e2d;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.recy-admin-access-btn:hover svg {
+    animation: recyNavIconBounce 0.55s ease;
+}
+
+@keyframes recyShieldFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+/* ===== Dashboard Hero Admin Panel ===== */
+
+.recy-dashboard-hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.recy-dashboard-hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+}
+
+.recy-dashboard-hero-text {
+    max-width: 620px;
+}
+
+.recy-hero-admin-panel {
+    width: 390px;
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 24px;
+    padding: 18px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.12);
+}
+
+.recy-hero-admin-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.recy-hero-admin-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.18);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.recy-hero-admin-icon svg {
+    width: 22px;
+    height: 22px;
+    animation: recyShieldFloat 2.4s ease-in-out infinite;
+}
+
+.recy-hero-admin-panel h5 {
+    color: #ffffff;
+}
+
+.recy-hero-admin-panel p {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.recy-hero-admin-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #ffffff;
+    color: #0f6b3f;
+    border-radius: 999px;
+    padding: 9px 16px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: 0.22s ease;
+}
+
+.recy-hero-admin-btn svg {
+    width: 16px;
+    height: 16px;
+    transition: 0.22s ease;
+}
+
+.recy-hero-admin-btn:hover {
+    color: #064e2d;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+.recy-hero-admin-btn:hover svg {
+    animation: recyNavIconBounce 0.55s ease;
+}
+
+@media (max-width: 992px) {
+    .recy-dashboard-hero-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .recy-hero-admin-panel {
+        width: 100%;
+    }
+}
+
+/* ===== Admin Dashboard Icon Buttons ===== */
+
+.recy-admin-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid #0f6b3f;
+    color: #0f6b3f;
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: 0.22s ease;
+    white-space: nowrap;
+}
+
+.recy-admin-icon-btn svg {
+    width: 17px;
+    height: 17px;
+    transition: 0.22s ease;
+}
+
+.recy-admin-icon-btn:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-admin-icon-btn:hover svg {
+    animation: recyAdminIconBounce 0.6s ease;
+}
+
+.recy-admin-icon-btn-sm {
+    padding: 7px 13px;
+    font-size: 13px;
+}
+
+.recy-admin-icon-btn-sm svg {
+    width: 15px;
+    height: 15px;
+}
+
+@keyframes recyAdminIconBounce {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+
+    45% {
+        transform: translateY(-3px) scale(1.08);
+    }
+
+    70% {
+        transform: translateY(1px) scale(0.98);
+    }
+}
+
+/* ===== Dashboard Latest Order Wide ===== */
+
+.recy-order-card-wide {
+    width: 100%;
+}
+
+.recy-dashboard-order-row {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr auto;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 0;
+    border-top: 1px solid #eef2f7;
+}
+
+.recy-dashboard-order-row:first-of-type {
+    border-top: none;
+}
+
+.recy-dashboard-order-code {
+    font-size: 16px;
+    font-weight: 800;
+    color: #102033;
+}
+
+.recy-dashboard-order-meta {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.recy-dashboard-order-price {
+    color: #0f6b3f;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.recy-dashboard-order-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #0f6b3f;
+    color: #0f6b3f;
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: 0.22s ease;
+    white-space: nowrap;
+}
+
+.recy-dashboard-order-action svg {
+    width: 15px;
+    height: 15px;
+    transition: 0.22s ease;
+}
+
+.recy-dashboard-order-action:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-dashboard-order-action:hover svg {
+    animation: recyNavIconBounce 0.55s ease;
+}
+
+@media (max-width: 768px) {
+    .recy-dashboard-order-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .recy-dashboard-order-action {
+        width: 100%;
+    }
+}
+
+/* ===== Recyclick Custom Form Validation ===== */
+
+.recy-input-invalid {
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.08) !important;
+}
+
+.recy-field-error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    color: #991b1b;
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    border-radius: 14px;
+    padding: 9px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    animation: recyErrorPop 0.25s ease;
+}
+
+.recy-field-error svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+@keyframes recyErrorPop {
+    0% {
+        opacity: 0;
+        transform: translateY(-4px) scale(0.98);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 576px) {
+    .recy-field-error {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+}
+
+/* ===== Admin Product Buttons ===== */
+
+.recy-admin-table-btn,
+.recy-admin-top-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 999px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: 0.22s ease;
+    white-space: nowrap;
+}
+
+.recy-admin-top-btn {
+    padding: 10px 18px;
+    border: 1px solid #0f6b3f;
+}
+
+.recy-admin-table-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+    border: 1px solid;
+}
+
+.recy-admin-top-btn svg,
+.recy-admin-table-btn svg {
+    width: 16px;
+    height: 16px;
+    transition: 0.22s ease;
+}
+
+.recy-admin-btn-outline {
+    background: #ffffff;
+    color: #0f6b3f;
+    border-color: #0f6b3f;
+}
+
+.recy-admin-btn-outline:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-admin-btn-primary {
+    background: #dff5e8;
+    color: #0f6b3f;
+    border-color: #dff5e8;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.recy-admin-btn-primary:hover {
+    background: #ffffff;
+    color: #064e2d;
+    border-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.16);
+}
+
+.recy-admin-btn-edit {
+    background: #ffffff;
+    color: #0f6b3f;
+    border-color: #0f6b3f;
+}
+
+.recy-admin-btn-edit:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 107, 63, 0.18);
+}
+
+.recy-admin-btn-delete {
+    background: #ffffff;
+    color: #dc2626;
+    border-color: #ef4444;
+}
+
+.recy-admin-btn-delete:hover {
+    background: #dc2626;
+    color: #ffffff;
+    border-color: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.18);
+}
+
+.recy-admin-top-btn:hover svg,
+.recy-admin-table-btn:hover svg {
+    animation: recyAdminProductIcon 0.6s ease;
+}
+
+@keyframes recyAdminProductIcon {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+
+    35% {
+        transform: translateY(-2px) scale(1.08);
+    }
+
+    70% {
+        transform: translateY(1px) scale(0.98);
+    }
+}
+
+/* ===== Admin Back Button ===== */
+
+.recy-admin-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #ffffff;
+    color: #0f6b3f;
+    border: 1px solid #ffffff;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: 0.22s ease;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.recy-admin-back-btn svg {
+    width: 17px;
+    height: 17px;
+    transition: 0.22s ease;
+}
+
+.recy-admin-back-btn:hover {
+    background: #dff5e8;
+    color: #064e2d;
+    border-color: #dff5e8;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.16);
+}
+
+.recy-admin-back-btn:hover svg {
+    animation: recyBackIconMove 0.65s ease;
+}
+
+@keyframes recyBackIconMove {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    40% {
+        transform: translateX(-4px);
+    }
+
+    70% {
+        transform: translateX(1px);
+    }
+}
+
+/* ===== Admin Product Image Preview ===== */
+
+.recy-image-preview-box {
+    border: 1px dashed rgba(15, 107, 63, 0.35);
+    background: #f8fafc;
+    border-radius: 24px;
+    padding: 18px;
+    margin-top: 12px;
+}
+
+.recy-image-preview-frame {
+    width: 180px;
+    height: 180px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recy-image-preview-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.recy-remove-image-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 999px;
+    border: 1px solid #dc2626;
+    background: #ffffff;
+    color: #dc2626;
+    padding: 9px 15px;
+    font-weight: 800;
+    margin-top: 12px;
+    transition: 0.22s ease;
+}
+
+.recy-remove-image-btn svg {
+    width: 16px;
+    height: 16px;
+    transition: 0.22s ease;
+}
+
+.recy-remove-image-btn:hover {
+    background: #dc2626;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(220, 38, 38, 0.18);
+}
+
+.recy-remove-image-btn:hover svg {
+    animation: recyAdminProductIcon 0.6s ease;
+}
+
+.recy-image-preview-note {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 8px;
+}
+
+/* ===== Admin Category Icon Polish ===== */
+
+.recy-category-tip-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: #d8efe4;
+    border: 1px solid rgba(15, 107, 63, 0.22);
+    border-radius: 18px;
+    padding: 16px 18px;
+}
+
+.recy-category-tip-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: #0f6b3f;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 10px 22px rgba(15, 107, 63, 0.16);
+}
+
+.recy-category-tip-icon svg {
+    width: 19px;
+    height: 19px;
+    animation: recyCategoryTipFloat 2.3s ease-in-out infinite;
+}
+
+@keyframes recyCategoryTipFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+/* ===== Admin Action Button Alignment ===== */
+
+.recy-admin-action-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+}
+
+.recy-admin-action-wrap form {
+    margin: 0;
+}
+
+.recy-admin-action-wrap .recy-admin-table-btn {
+    min-width: 86px;
+}
+
+/* ===== Admin Order Detail Button ===== */
+
+.recy-admin-btn-detail {
+    background: #ffffff;
+    color: #0f6b3f;
+    border-color: #0f6b3f;
+}
+
+.recy-admin-btn-detail:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+    border-color: #0f6b3f;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 107, 63, 0.18);
+}
+
+/* ===== Admin Chat Icon Buttons ===== */
+
+.recy-admin-chat-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-weight: 800;
+    text-decoration: none;
+    border: 1px solid #0f6b3f;
+    transition: 0.22s ease;
+    white-space: nowrap;
+}
+
+.recy-admin-chat-btn svg {
+    width: 17px;
+    height: 17px;
+    transition: 0.22s ease;
+}
+
+.recy-admin-chat-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.18);
+}
+
+.recy-admin-chat-btn:hover svg {
+    animation: recyAdminChatIcon 0.65s ease;
+}
+
+.recy-admin-chat-btn-outline {
+    background: #ffffff;
+    color: #0f6b3f;
+}
+
+.recy-admin-chat-btn-outline:hover {
+    background: #0f6b3f;
+    color: #ffffff;
+}
+
+.recy-admin-chat-btn-primary {
+    background: #0f6b3f;
+    color: #ffffff;
+    border-color: #0f6b3f;
+}
+
+.recy-admin-chat-btn-primary:hover {
+    background: #064e2d;
+    color: #ffffff;
+    border-color: #064e2d;
+}
+
+.recy-admin-reply-btn {
+    height: 48px;
+    padding: 0 22px;
+    border-radius: 0 18px 18px 0;
+    border: none;
+    background: #0f6b3f;
+    color: #ffffff;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.22s ease;
+}
+
+.recy-admin-reply-btn svg {
+    width: 17px;
+    height: 17px;
+    transition: 0.22s ease;
+}
+
+.recy-admin-reply-btn:hover {
+    background: #064e2d;
+}
+
+.recy-admin-reply-btn:hover svg {
+    animation: recySendFly 0.65s ease;
+}
+
+@keyframes recyAdminChatIcon {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+
+    40% {
+        transform: translateY(-3px) scale(1.08);
+    }
+
+    70% {
+        transform: translateY(1px) scale(0.98);
     }
 }

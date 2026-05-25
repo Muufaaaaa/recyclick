@@ -5,23 +5,67 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
-    public function checkout()
+    public function buyNow(Product $product)
     {
-        $cart = Cart::where('user_id', Auth::id())
-            ->with('items.product')
-            ->first();
-
-        if (!$cart || $cart->items->count() == 0) {
-            return redirect()->route('cart.index')->with('success', 'Keranjang masih kosong.');
+        if ($product->stock <= 0) {
+            return back()->withErrors([
+                'stock' => 'Stok produk habis.'
+            ]);
         }
 
-        return view('orders.checkout', compact('cart'));
+        session([
+            'buy_now' => [
+                'product_id' => $product->id,
+                'quantity' => 1,
+            ]
+        ]);
+
+        return redirect()->route('checkout')->with('success', 'Produk siap dipesan.');
+    }
+
+    public function checkout()
+    {
+        if (session()->has('buy_now')) {
+            $buyNow = session('buy_now');
+
+            $product = Product::findOrFail($buyNow['product_id']);
+
+            $cart = (object) [
+                'items' => collect([
+                    (object) [
+                        'product' => $product,
+                        'quantity' => $buyNow['quantity'],
+                    ]
+                ])
+            ];
+
+            $isBuyNow = true;
+
+            return view('orders.checkout', compact('cart', 'isBuyNow'));
+        }
+
+        $cart = Cart::firstOrCreate([
+            'user_id' => Auth::id(),
+        ]);
+
+        $cart->load('items.product');
+
+        if ($cart->items->count() <= 0) {
+            return redirect()->route('cart.index')->withErrors([
+                'cart' => 'Keranjang masih kosong.'
+            ]);
+        }
+
+        $isBuyNow = false;
+
+        return view('orders.checkout', compact('cart', 'isBuyNow'));
     }
 
     public function store(Request $request)
@@ -32,18 +76,39 @@ class OrderController extends Controller
             'payment_method' => 'required',
         ]);
 
-        $cart = Cart::where('user_id', Auth::id())
-            ->with('items.product')
-            ->first();
+        if (session()->has('buy_now')) {
+            $buyNow = session('buy_now');
 
-        if (!$cart || $cart->items->count() == 0) {
-            return redirect()->route('cart.index')->with('success', 'Keranjang masih kosong.');
+            $product = Product::findOrFail($buyNow['product_id']);
+
+            $checkoutItems = collect([
+                (object) [
+                    'product' => $product,
+                    'quantity' => $buyNow['quantity'],
+                ]
+            ]);
+
+            $isBuyNow = true;
+            $cart = null;
+        } else {
+            $cart = Cart::where('user_id', Auth::id())
+                ->with('items.product')
+                ->first();
+
+            if (!$cart || $cart->items->count() == 0) {
+                return redirect()->route('cart.index')->withErrors([
+                    'cart' => 'Keranjang masih kosong.'
+                ]);
+            }
+
+            $checkoutItems = $cart->items;
+            $isBuyNow = false;
         }
 
         $totalPrice = 0;
         $totalEcoPoints = 0;
 
-        foreach ($cart->items as $item) {
+        foreach ($checkoutItems as $item) {
             if ($item->quantity > $item->product->stock) {
                 return back()->withErrors([
                     'stock' => 'Stok produk ' . $item->product->name . ' tidak cukup.'
@@ -59,6 +124,7 @@ class OrderController extends Controller
             'order_code' => 'RCY-' . strtoupper(Str::random(8)),
             'total_price' => $totalPrice,
             'total_eco_points' => $totalEcoPoints,
+            'eco_points_awarded' => false,
             'address' => $request->address,
             'phone' => $request->phone,
             'payment_method' => $request->payment_method,
@@ -67,10 +133,10 @@ class OrderController extends Controller
             'status' => 'pending',
         ]);
 
-        foreach ($cart->items as $item) {
+        foreach ($checkoutItems as $item) {
             OrderItem::create([
                 'order_id' => $order->id,
-                'product_id' => $item->product_id,
+                'product_id' => $item->product->id,
                 'quantity' => $item->quantity,
                 'price' => $item->product->price,
                 'subtotal' => $item->product->price * $item->quantity,
@@ -79,10 +145,11 @@ class OrderController extends Controller
             $item->product->decrement('stock', $item->quantity);
         }
 
-        $user = Auth::user();
-        $user->increment('eco_points', $totalEcoPoints);
-
-        $cart->items()->delete();
+        if ($isBuyNow) {
+            session()->forget('buy_now');
+        } else {
+            $cart->items()->delete();
+        }
 
         return redirect()->route('orders.success', $order->order_code);
     }

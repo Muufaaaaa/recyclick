@@ -32,6 +32,18 @@ class OrderController extends Controller
             'status' => $request->status,
         ]);
 
-        return back()->with('success', 'Status pesanan berhasil diperbarui.');
+        if (
+            $order->status === 'completed' &&
+            $order->payment_status === 'paid' &&
+            !$order->eco_points_awarded
+        ) {
+            $order->user->increment('eco_points', $order->total_eco_points);
+
+            $order->update([
+                'eco_points_awarded' => true,
+            ]);
+        }
+
+        return back()->with('success', 'Status order berhasil diperbarui.');
     }
 }

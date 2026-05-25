@@ -18,8 +18,14 @@
                         </p>
                     </div>
 
-                    <a href="{{ route('admin.dashboard') }}" class="btn btn-light rounded-pill fw-bold text-success">
-                        Admin Panel
+                    <a href="{{ route('admin.dashboard') }}" class="recy-admin-chat-btn recy-admin-chat-btn-outline">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M4 13h6V4H4v9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                            <path d="M14 20h6V4h-6v16Z" stroke="currentColor" stroke-width="2"
+                                stroke-linejoin="round" />
+                            <path d="M4 20h6v-3H4v3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                        </svg>
+                        <span>Admin Panel</span>
                     </a>
                 </div>
             </div>
@@ -72,9 +78,15 @@
                                     {{ $totalMessages }} pesan · {{ $conversation->created_at->format('d M Y H:i') }}
                                 </small>
 
-                                <a href="{{ route('admin.chats.show', $conversation->user_id) }}"
-                                    class="recy-btn-primary text-decoration-none">
-                                    Buka Chat
+                                <a href="{{ route('admin.chats.show', $conversation->user_id ?? $chat->user_id ?? $user->id) }}"
+                                    class="recy-admin-chat-btn recy-admin-chat-btn-primary">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <path
+                                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5A8.48 8.48 0 0 1 21 11v.5Z"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    <span>Buka Chat</span>
                                 </a>
                             </div>
                         </div>

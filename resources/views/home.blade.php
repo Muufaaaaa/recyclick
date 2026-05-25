@@ -186,14 +186,6 @@
                     </button>
                 </div>
 
-                <div class="recy-filter-bar">
-                    <a href="{{ route('products.index') }}" class="recy-market-pill">Reusable</a>
-                    <a href="{{ route('products.index') }}" class="recy-market-pill">Recycled</a>
-                    <a href="{{ route('products.index') }}" class="recy-market-pill">Zero Waste</a>
-                    <a href="{{ route('products.index') }}" class="recy-market-pill">Eco Lifestyle</a>
-                    <a href="{{ route('products.index') }}" class="recy-market-pill">All Filters</a>
-                </div>
-
             </div>
         </section>
 
@@ -206,7 +198,7 @@
                     </h2>
 
                     <a href="{{ route('products.index') }}" class="recy-market-pill">
-                        Sort by →
+                        More Products
                     </a>
                 </div>
 
@@ -224,7 +216,24 @@
                                     </div>
 
                                     <div class="position-absolute top-0 end-0 m-3">
-                                        <span class="recy-heart">♡</span>
+                                        @auth
+                                            <form action="{{ route('wishlist.toggle', $product->slug) }}" method="POST">
+                                                @csrf
+
+                                                <button type="submit"
+                                                    class="recy-heart border-0 {{ in_array($product->id, $wishlistProductIds ?? []) ? 'recy-heart-active' : '' }}"
+                                                    title="{{ in_array($product->id, $wishlistProductIds ?? []) ? 'Hapus dari Wishlist' : 'Tambah ke Wishlist' }}">
+                                                    {{ in_array($product->id, $wishlistProductIds ?? []) ? '♥' : '♡' }}
+                                                </button>
+                                            </form>
+                                        @endauth
+
+                                        @guest
+                                            <a href="{{ route('login') }}" class="recy-heart text-decoration-none"
+                                                title="Login untuk menambahkan wishlist">
+                                                ♡
+                                            </a>
+                                        @endguest
                                     </div>
                                 </div>
 
@@ -279,54 +288,42 @@
                     <a href="{{ route('products.index') }}" class="recy-market-pill">View All</a>
                 </div>
 
+                @php
+                    $categoryIcons = [
+                        'Reusable Product' => '👜',
+                        'Recycled Craft' => '♻',
+                        'Eco Lifestyle' => '🌱',
+                        'Zero Waste' => '🚯',
+                    ];
+                @endphp
+
                 <div class="row g-4">
-                    <div class="col-md-3">
-                        <div class="recy-category-mini">
-                            <div class="recy-category-icon">
-                                <span class="recy-icon-cart">👜</span>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold mb-1">Reusable Product</h6>
-                                <small class="text-muted">Tas, botol, wadah</small>
-                            </div>
-                        </div>
-                    </div>
+                    @forelse ($categories as $category)
+                        <div class="col-md-3">
+                            <a href="{{ route('products.category', $category->slug) }}"
+                                class="recy-category-mini recy-category-link">
+                                <div class="recy-category-icon">
+                                    <span>
+                                        {{ $categoryIcons[$category->name] ?? '♻' }}
+                                    </span>
+                                </div>
 
-                    <div class="col-md-3">
-                        <div class="recy-category-mini">
-                            <div class="recy-category-icon">
-                                <span class="recy-icon-recycle">♻</span>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold mb-1">Recycled Craft</h6>
-                                <small class="text-muted">Kertas & kerajinan</small>
+                                <div>
+                                    <h6 class="fw-bold mb-1">{{ $category->name }}</h6>
+                                    <small class="text-muted">
+                                        {{ $category->description ?? 'Produk ramah lingkungan pilihan Recyclick.' }}
+                                    </small>
+                                </div>
+                            </a>
+                        </div>
+                    @empty
+                        <div class="col-12">
+                            <div class="recy-news-card text-center">
+                                <h5 class="fw-bold">Kategori belum tersedia</h5>
+                                <p class="text-muted mb-0">Tambahkan kategori dari Admin Panel.</p>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="recy-category-mini">
-                            <div class="recy-category-icon">
-                                <span class="recy-icon-leaf">🌱</span>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold mb-1">Eco Lifestyle</h6>
-                                <small class="text-muted">Produk harian hijau</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="recy-category-mini">
-                            <div class="recy-category-icon">
-                                <span class="recy-icon-payment">🚯</span>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold mb-1">Zero Waste</h6>
-                                <small class="text-muted">Minim sampah</small>
-                            </div>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
             </div>
         </section>
@@ -345,11 +342,16 @@
                 <div class="row g-4">
                     <div class="col-md-4">
                         <div class="recy-news-card">
-                            <div class="recy-animated-icon mb-3">
-                                <span class="recy-icon-leaf">🌱</span>
+                            <div class="recy-news-top">
+                                <div class="recy-animated-icon">
+                                    <span class="recy-icon-leaf">🌱</span>
+                                </div>
+
+                                <span class="recy-badge">Eco Tips</span>
                             </div>
-                            <span class="recy-badge">Eco Tips</span>
+
                             <h4 class="fw-bold mt-3">Cara Mengurangi Plastik Sekali Pakai</h4>
+
                             <p class="text-muted mb-0">
                                 Mulai dari mengganti kantong plastik dengan tote bag dan memakai stainless straw.
                             </p>
@@ -358,11 +360,16 @@
 
                     <div class="col-md-4">
                         <div class="recy-news-card">
-                            <div class="recy-animated-icon mb-3">
-                                <span class="recy-icon-cart">🛒</span>
+                            <div class="recy-news-top">
+                                <div class="recy-animated-icon">
+                                    <span class="recy-icon-cart">🛒</span>
+                                </div>
+
+                                <span class="recy-badge">Event</span>
                             </div>
-                            <span class="recy-badge">Event</span>
+
                             <h4 class="fw-bold mt-3">Green Shopping Week</h4>
+
                             <p class="text-muted mb-0">
                                 Promo produk ramah lingkungan pilihan dengan eco points tambahan.
                             </p>
@@ -371,11 +378,16 @@
 
                     <div class="col-md-4">
                         <div class="recy-news-card">
-                            <div class="recy-animated-icon mb-3">
-                                <span class="recy-icon-recycle">♻</span>
+                            <div class="recy-news-top">
+                                <div class="recy-animated-icon">
+                                    <span class="recy-icon-recycle">♻</span>
+                                </div>
+
+                                <span class="recy-badge">Impact</span>
                             </div>
-                            <span class="recy-badge">Impact</span>
+
                             <h4 class="fw-bold mt-3">Eco Points Sebagai Simbol Kontribusi</h4>
+
                             <p class="text-muted mb-0">
                                 Setiap pembelian memberi poin sebagai bentuk dukungan terhadap konsumsi berkelanjutan.
                             </p>
@@ -389,25 +401,24 @@
         <section id="delivery" class="py-5">
             <div class="container">
                 <div class="recy-impact-banner">
-                    <div class="row align-items-center">
+                    <div class="row align-items-center recy-impact-content">
                         <div class="col-lg-8">
-                            <span class="badge bg-light text-success rounded-pill mb-3">
+                            <span class="recy-impact-label">
                                 Delivery Information
                             </span>
 
-                            <h2 class="fw-bold mb-3">
+                            <h2 class="fw-bold mb-3 recy-impact-title">
                                 Belanja hijau lebih mudah dengan checkout sederhana.
                             </h2>
 
-                            <p class="mb-0 opacity-75">
+                            <p class="recy-impact-text">
                                 Recyclick mendukung metode pembayaran COD, Transfer Bank, E-Wallet,
                                 Virtual Account Dummy, dan QRIS Dummy untuk simulasi payment gateway.
                             </p>
                         </div>
 
                         <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-                            <a href="{{ route('products.index') }}"
-                                class="btn btn-light rounded-pill px-4 py-2 fw-bold text-success">
+                            <a href="{{ route('products.index') }}" class="recy-impact-button">
                                 Mulai Belanja
                             </a>
                         </div>

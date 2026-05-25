@@ -38,7 +38,16 @@
 
                 <div class="col-lg-7">
                     <div class="recy-auth-form">
-                        <span class="recy-badge">Register</span>
+                        <a href="{{ route('home') }}" class="recy-home-btn recy-auth-home-top">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M3 11L12 3l9 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M5 10v10h5v-6h4v6h5V10" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span>Home</span>
+                        </a>
+                        <span class="recy-auth-badge">Register</span>
 
                         <h2 class="fw-bold mt-3 mb-2">
                             Buat Akun Baru
@@ -95,11 +104,6 @@
                             </p>
                         </form>
 
-                        <div class="text-center mt-4">
-                            <a href="{{ route('home') }}" class="text-muted text-decoration-none">
-                                ← Kembali ke Home
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>

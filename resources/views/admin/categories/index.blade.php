@@ -19,14 +19,29 @@
                     </div>
 
                     <div class="recy-admin-toolbar">
-                        <a href="{{ route('admin.dashboard') }}"
-                            class="btn btn-light rounded-pill fw-bold text-success">
-                            Admin Panel
+                        <a href="{{ route('admin.dashboard') }}" class="recy-admin-top-btn recy-admin-btn-outline">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M4 13h6V4H4v9Z" stroke="currentColor" stroke-width="2"
+                                    stroke-linejoin="round" />
+                                <path d="M14 20h6V4h-6v16Z" stroke="currentColor" stroke-width="2"
+                                    stroke-linejoin="round" />
+                                <path d="M4 20h6v-3H4v3Z" stroke="currentColor" stroke-width="2"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>Admin Panel</span>
                         </a>
 
                         <a href="{{ route('admin.categories.create') }}"
-                            class="btn btn-outline-light rounded-pill fw-bold">
-                            + Tambah Kategori
+                            class="recy-admin-top-btn recy-admin-btn-primary">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M4 7h7v7H4V7Z" stroke="currentColor" stroke-width="2"
+                                    stroke-linejoin="round" />
+                                <path d="M13 7h7v7h-7V7Z" stroke="currentColor" stroke-width="2"
+                                    stroke-linejoin="round" />
+                                <path d="M12 17v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                <path d="M10 19h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                            <span>Tambah Kategori</span>
                         </a>
                     </div>
                 </div>
@@ -54,8 +69,8 @@
                                 <th>Nama Kategori</th>
                                 <th>Slug</th>
                                 <th>Deskripsi</th>
-                                <th>Total Produk</th>
-                                <th width="180">Aksi</th>
+                                <th class="text-center">Total Produk</th>
+                                <th class="text-center" width="190">Aksi</th>
                             </tr>
                         </thead>
 
@@ -76,27 +91,43 @@
                                         {{ $category->description ?? '-' }}
                                     </td>
 
-                                    <td>
+                                    <td class="text-center">
                                         <span class="badge bg-success rounded-pill">
                                             {{ $category->products_count }} produk
                                         </span>
                                     </td>
 
-                                    <td>
-                                        <div class="d-flex gap-2">
+                                    <td class="text-center align-middle">
+                                        <div class="recy-admin-action-wrap">
                                             <a href="{{ route('admin.categories.edit', $category->id) }}"
-                                                class="btn btn-sm btn-outline-success recy-admin-action">
-                                                Edit
+                                                class="recy-admin-table-btn recy-admin-btn-edit">
+                                                <svg viewBox="0 0 24 24" fill="none">
+                                                    <path d="M12 20h9" stroke="currentColor" stroke-width="2"
+                                                        stroke-linecap="round" />
+                                                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z"
+                                                        stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                                                </svg>
+                                                <span>Edit</span>
                                             </a>
 
                                             <form action="{{ route('admin.categories.destroy', $category->id) }}"
-                                                method="POST">
+                                                method="POST" data-confirm-title="Hapus Kategori?"
+                                                data-confirm-message="Kategori hanya bisa dihapus jika belum memiliki produk.">
                                                 @csrf
                                                 @method('DELETE')
 
-                                                <button class="btn btn-sm btn-outline-danger recy-admin-action"
-                                                    onclick="return confirm('Hapus kategori ini?')">
-                                                    Hapus
+                                                <button type="submit" class="recy-admin-table-btn recy-admin-btn-delete">
+                                                    <svg viewBox="0 0 24 24" fill="none">
+                                                        <path d="M3 6h18" stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" />
+                                                        <path d="M8 6V4h8v2" stroke="currentColor" stroke-width="2"
+                                                            stroke-linejoin="round" />
+                                                        <path d="M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2"
+                                                            stroke-linejoin="round" />
+                                                        <path d="M10 11v6M14 11v6" stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" />
+                                                    </svg>
+                                                    <span>Hapus</span>
                                                 </button>
                                             </form>
                                         </div>

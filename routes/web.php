@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
     Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store');
+    Route::post('/buy-now/{product:slug}', [OrderController::class, 'buyNow'])->name('buy.now');
     Route::get('/orders/success/{order:order_code}', [OrderController::class, 'success'])->name('orders.success');
     Route::get('/orders/payment/{order:order_code}', [OrderController::class, 'payment'])->name('orders.payment');
     Route::post('/orders/{order:order_code}/pay', [OrderController::class, 'pay'])->name('orders.pay');
