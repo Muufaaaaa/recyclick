@@ -3969,3 +3969,181 @@ body {
         transform: translateY(1px) scale(0.98);
     }
 }
+
+/* ===== Forgot Password Page ===== */
+
+.recy-auth-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f6f8f3, #eaf7ef);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+}
+
+.recy-forgot-card {
+    width: 100%;
+    max-width: 920px;
+    background: #ffffff;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 24px 70px rgba(15, 107, 63, 0.14);
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+}
+
+.recy-forgot-left {
+    background: linear-gradient(135deg, #064e2d, #0f6b3f);
+    color: #ffffff;
+    padding: 44px;
+    position: relative;
+    overflow: hidden;
+}
+
+.recy-forgot-left::after {
+    content: "";
+    width: 190px;
+    height: 190px;
+    background: rgba(255, 255, 255, 0.12);
+    position: absolute;
+    right: -60px;
+    top: -60px;
+    border-radius: 999px;
+}
+
+.recy-forgot-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 900;
+    font-size: 22px;
+    margin-bottom: 38px;
+    position: relative;
+    z-index: 2;
+}
+
+.recy-forgot-logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.16);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    animation: recyForgotFloat 2.3s ease-in-out infinite;
+}
+
+.recy-forgot-info-box {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 22px;
+    padding: 18px;
+    margin-top: 22px;
+    position: relative;
+    z-index: 2;
+}
+
+.recy-forgot-right {
+    padding: 44px;
+}
+
+.recy-forgot-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #eaf7ef;
+    color: #0f6b3f;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-weight: 800;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.recy-forgot-badge svg {
+    width: 16px;
+    height: 16px;
+    animation: recyForgotFloat 2.3s ease-in-out infinite;
+}
+
+.recy-forgot-input {
+    border-radius: 18px;
+    padding: 13px 16px;
+    border: 1px solid #d8e2dc;
+    transition: 0.2s ease;
+}
+
+.recy-forgot-input:focus {
+    border-color: #0f6b3f;
+    box-shadow: 0 0 0 4px rgba(15, 107, 63, 0.08);
+}
+
+.recy-forgot-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #0f6b3f;
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 20px;
+    font-weight: 800;
+    transition: 0.22s ease;
+}
+
+.recy-forgot-submit svg {
+    width: 17px;
+    height: 17px;
+    transition: 0.22s ease;
+}
+
+.recy-forgot-submit:hover {
+    background: #064e2d;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(15, 107, 63, 0.18);
+}
+
+.recy-forgot-submit:hover svg {
+    animation: recySendFly 0.65s ease;
+}
+
+.recy-forgot-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #0f6b3f;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.recy-forgot-back svg {
+    width: 16px;
+    height: 16px;
+    transition: 0.22s ease;
+}
+
+.recy-forgot-back:hover svg {
+    transform: translateX(-4px);
+}
+
+@keyframes recyForgotFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+@media (max-width: 768px) {
+    .recy-forgot-card {
+        grid-template-columns: 1fr;
+    }
+
+    .recy-forgot-left,
+    .recy-forgot-right {
+        padding: 30px;
+    }
+}
